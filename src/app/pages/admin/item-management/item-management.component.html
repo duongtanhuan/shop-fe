@@ -1,4 +1,32 @@
-<app-header></app-header>
-<p>
-  item-management works!
-</p>
+<h5> ITEM LIST</h5>
+<div class="item-list">
+  <div class="table-responsive table-hover bg-white">
+    <table class="table">
+      <thead>
+        <tr class="bg-info">
+          <th>.No</th>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Update</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of items ">
+          <td>{{item.id}}</td>
+          <td>{{item.name}}</td>
+          <td>{{item.price}}</td>
+          <td><button type="button" class="btn btn-success">Update</button></td>
+          <td><button type="button" class="btn btn-danger">Delete</button></td>
+        </tr>
+        <tr *ngIf="!items?.length">
+          <td colspan="5">
+            <span class="display-message">
+              There is no data to display.
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

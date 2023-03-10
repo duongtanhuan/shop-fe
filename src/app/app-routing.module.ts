@@ -1,9 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router'; // CLI imports router
 import { ItemManagementComponent } from './pages/admin/item-management/item-management.component';
+import { AdminComponent } from './pages/admin/admin.component';
 
 const routes: Routes = [
-    {path: 'item', component: ItemManagementComponent}
+    {
+      path: 'admin', component: AdminComponent,
+    }
 ];
 
 @NgModule({
