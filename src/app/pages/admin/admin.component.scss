@@ -1,26 +1,25 @@
 .main {
     display: flex;
     background-color: #E0E0EC;
-    overflow-x: hidden;
+    overflow: hidden;
 }
 .header {
     background-color: #FFFFFF;
-    width: 100%;
-    height: 10%;
+    height: 8%;
 }
 
 .side-bar {
     background-color: #3C4B64;
-    width: 18%;
-    height: 100vh;
+    width: 21vw;
+    height: 150vh;
     .title {
         display: flex;
         justify-content: center;
         background-color: #303C54;
-        height: 10%;
+        height: 8%;
     }
 }
 .content {
     width: 100%;
-    height: 100%;
+    height: 150vh;
 }

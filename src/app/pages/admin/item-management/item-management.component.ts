@@ -1,62 +1,89 @@
-import { Component, OnInit } from '@angular/core';
-import { ItemService } from '../../../services/item.service';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Item } from 'src/app/models/item';
-import { Observable } from 'rxjs';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { Component, OnInit } from "@angular/core";
+import { ItemService } from "../../../services/item.service";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { Item } from "src/app/models/item";
+import { Observable } from "rxjs";
+import "bootstrap/dist/css/bootstrap.min.css";
 @Component({
-  selector: 'app-item-management',
-  templateUrl: './item-management.component.html',
-  styleUrls: ['./item-management.component.scss']
+  selector: "app-item-management",
+  templateUrl: "./item-management.component.html",
+  styleUrls: ["./item-management.component.scss"],
 })
 export class ItemManagementComponent implements OnInit {
-
-  // itemForm = this.fb.group({
-  //   itemId:[],
-  //   itemName:['',Validators.required, Validators.minLength(5)],
-  //   itemPrice:['',Validators.required]
-  // })
   items: Observable<Item[]>;
   item: Item = new Item();
+  modalTitle: string;
+  isSaved = false;
+  deleteMessage = false;
 
   itemForm = new FormGroup({
-    itemName: new FormControl("",Validators.required),
-    itemPrice: new FormControl("",Validators.required)
-  })
-  constructor(
-    private itemService:ItemService,
-    private fb: FormBuilder
-    ) { }
+    itemId: new FormControl(null),
+    itemName: new FormControl("", Validators.required),
+    itemPrice: new FormControl("", Validators.required),
+  });
+  constructor(private itemService: ItemService) {}
 
   ngOnInit() {
+    this.isSaved = false;
     this.getItemAll();
+  }
 
+  get ItemId() {
+    return this.itemForm.get("itemId");
   }
 
   get ItemName() {
-    return this.itemForm.get('itemName');
+    return this.itemForm.get("itemName");
+  }
+
+  get ItemPrice() {
+    return this.itemForm.get("itemPrice");
   }
 
   getItemAll() {
     this.itemService.doGetAll().subscribe((res) => {
       this.items = res;
-      console.log("items: ", this.items)
     });
   }
+
   saveItem() {
     this.item = new Item();
-    this.item.id = 6;
+    this.item.id = this.ItemId.value;
     this.item.name = this.ItemName.value;
     this.item.price = this.ItemPrice.value;
-    console.log("Form value: ", this.item)
-    // this.itemService.doPost(this.item).subscribe((res) => console.log(res));
+
+    if (this.item.id != null) {
+      this.itemService.doPut(this.item).subscribe((res) => {
+        this.isSaved = true;
+        this.getItemAll();
+      });
+    } else {
+      this.itemService.doPost(this.item).subscribe((res) => {
+        this.isSaved = true;
+        this.getItemAll();
+      });
+    }
+  }
+
+  changeisSaved() {
+    this.isSaved = false;
   }
 
   deleteItem(id: number) {
-    this.itemService.doDelete(id).subscribe((res) => console.log(res));
-  }
-  get ItemPrice() {
-    return this.itemForm.get('itemPrice');
+    this.itemService.doDelete(id).subscribe((res) => {
+      this.deleteMessage = true;
+      this.getItemAll();
+    });
   }
 
+  addNew() {
+    this.item = new Item();
+    this.modalTitle = "Add";
+  }
+  updateItem(id: number) {
+    this.modalTitle = "Update";
+    this.itemService.doGetById(id).subscribe((res) => {
+      this.item = res;
+    });
+  }
 }

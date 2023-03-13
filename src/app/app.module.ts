@@ -16,8 +16,6 @@ import { SharedModule } from './shared/shared.module';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule ,
-    ReactiveFormsModule,
     NgbModule,
     SharedModule
   ],

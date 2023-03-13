@@ -4,6 +4,7 @@ import { ItemManagementComponent } from '../pages/admin/item-management/item-man
 import { AdminComponent } from '../pages/admin/admin.component';
 import { AppRoutingModule } from '../app-routing.module';
 import { AdminRoutingModule } from '../pages/admin/admin-routing.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,9 @@ import { AdminRoutingModule } from '../pages/admin/admin-routing.module';
   imports: [
     CommonModule,
     AppRoutingModule,
-    AdminRoutingModule
+    AdminRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class SharedModule { }
