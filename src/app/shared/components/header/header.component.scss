@@ -1,0 +1,30 @@
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    background-color: #FFFFFF;
+    height: 8%;
+
+    .title-home {
+        display: flex;
+        justify-content: center;
+        width: 15%;
+        height: 100%;
+        background-color: antiquewhite;
+    }
+
+    .menu-header {
+        display: flex;
+        justify-content: space-between;
+        width: 40%;
+        height: 100%;
+        // background-color: aqua;
+        padding-top: 17px;
+        padding-left: 5px;
+        padding-right: 50px;
+
+        .btn:hover {
+            background-color: antiquewhite;
+        }
+    }
+}

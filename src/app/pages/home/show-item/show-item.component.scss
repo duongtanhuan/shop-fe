@@ -1,0 +1,32 @@
+.content-items {
+    display: flex;
+    margin-top: 17px;
+    height: 80%;
+   padding-left: 50px;
+    .directory {
+        width: 20%;
+        height: 100%;
+        background-color: #FFFFFF;
+    }
+    .show-items {
+        width: 78%;
+        height: 100%;
+        background-color: #f8f1e7;
+        margin-left: 30px;
+        padding-left: 10px;
+        padding-right: 10px;
+
+        .item {
+            padding-top: 10px;
+            padding-left: 10px;
+            background-color: #FFFFFF;
+            height: 150px;
+            border-radius: 2%;
+
+            .btn {
+                margin-top: 15px;
+                margin-left: 70px;
+            }
+        }
+    }
+}

@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ItemManagementComponent } from '../pages/admin/item-management/item-management.component';
-import { AdminComponent } from '../pages/admin/admin.component';
-import { AppRoutingModule } from '../app-routing.module';
-import { AdminRoutingModule } from '../pages/admin/admin-routing.module';
+import { ItemManagementComponent } from './item-management/item-management.component';
+import { AdminComponent } from './admin.component';
+import { AppRoutingModule } from '../../app-routing.module';
+import { AdminRoutingModule } from './admin-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
@@ -19,4 +19,4 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule
   ]
 })
-export class SharedModule { }
+export class AdminModule { }
