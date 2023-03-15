@@ -1,0 +1,45 @@
+.content-order {
+    display: flex;
+    margin-left: 150px;
+    margin-right: 150px;
+    padding-top: 10px;
+
+    .directory {
+        width: 24%;
+        height: 100vh;
+        background-color:  #FFFFFF;
+    }
+
+    .show-orders {
+        width: 76%;
+        background-color: #F5F5FB;
+        margin-left: 10px;
+
+        .nav-bar-orders {
+             height: 8vh;
+             margin-top: 20px;
+             background-color:  #FFFFFF;
+
+             .item-nav {
+                margin-top: 10px;
+                margin-left: 50px;
+             }
+        }
+
+        .card-item {
+            height: 45vh;
+            margin-top: 10px;
+            background-color: #FFFFFF;
+            border-radius: 4px;
+            padding-left: 10px;
+            padding-right: 10px;
+            .card-header {
+                height: 20%;
+                background-color: #FFFFFF;
+            }
+            .card-body{
+                height: 40%;
+            }
+        }
+    }
+}

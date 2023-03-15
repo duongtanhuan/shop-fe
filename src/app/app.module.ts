@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { ShowItemComponent } from './pages/home/show-item/show-item.component';
 import { LoginComponent } from './pages/login/login.component';
+import { CartComponent } from './pages/home/cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { LoginComponent } from './pages/login/login.component';
     HeaderComponent,
     ShowItemComponent,
     LoginComponent,
+    CartComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,9 +1,8 @@
 .main {
-    display: flex;
-    overflow: hidden;
+    height: 100%;
     .content {
         width: 100%;
-        height: 150vh;
-        background-color: #E0E0EC;
+        height: auto;
+        background-color: #F5F5FB;
     }
 }

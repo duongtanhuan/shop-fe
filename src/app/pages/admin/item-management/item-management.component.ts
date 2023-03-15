@@ -10,8 +10,12 @@ import "bootstrap/dist/css/bootstrap.min.css";
   styleUrls: ["./item-management.component.scss"],
 })
 export class ItemManagementComponent implements OnInit {
-  items: Observable<Item[]>;
   item: Item = new Item();
+  items: Item[] = [
+    new Item(),
+  ];
+
+
   modalTitle: string;
   isSaved = false;
   deleteMessage = false;
@@ -26,6 +30,7 @@ export class ItemManagementComponent implements OnInit {
   ngOnInit() {
     this.isSaved = false;
     this.getItemAll();
+    
   }
 
   get ItemId() {

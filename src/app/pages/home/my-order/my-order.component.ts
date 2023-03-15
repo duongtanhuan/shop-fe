@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { OrderService } from '../../../services/order.service';
+// import { Order } from 'src/app/models/item';
+import { Observable } from 'rxjs';
+import { Order } from 'src/app/models/order';
 
 @Component({
   selector: 'app-my-order',
@@ -7,9 +11,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MyOrderComponent implements OnInit {
 
-  constructor() { }
+  order: Order = new Order();
+  orders: Order[] = [new Order()];
+  constructor(private service:OrderService) { }
 
   ngOnInit() {
+    this.getOrdersByCustomerId(2)
   }
 
+  getOrdersByCustomerId(id: number) {
+    this.service.doGetAllByCustomerId(id).subscribe((res) => {
+      this.orders = res;
+      console.log(this.orders)
+    })
+  }
 }
