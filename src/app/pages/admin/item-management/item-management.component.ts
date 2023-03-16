@@ -1,9 +1,8 @@
 import { Component, OnInit } from "@angular/core";
-import { ItemService } from "../../../services/item.service";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { Item } from "src/app/models/item";
-import { Observable } from "rxjs";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Item } from "src/app/models/item";
+import { ItemService } from "../../../services/item.service";
 @Component({
   selector: "app-item-management",
   templateUrl: "./item-management.component.html",
@@ -11,10 +10,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 })
 export class ItemManagementComponent implements OnInit {
   item: Item = new Item();
-  items: Item[] = [
-    new Item(),
-  ];
-
+  items: Item[] = [new Item()];
 
   modalTitle: string;
   isSaved = false;
@@ -30,7 +26,6 @@ export class ItemManagementComponent implements OnInit {
   ngOnInit() {
     this.isSaved = false;
     this.getItemAll();
-    
   }
 
   get ItemId() {
@@ -85,6 +80,7 @@ export class ItemManagementComponent implements OnInit {
     this.item = new Item();
     this.modalTitle = "Add";
   }
+
   updateItem(id: number) {
     this.modalTitle = "Update";
     this.itemService.doGetById(id).subscribe((res) => {

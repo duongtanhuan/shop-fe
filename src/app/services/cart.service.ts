@@ -18,4 +18,15 @@ export class CartService {
   doGetCartByCustomerId(id: number): Observable<any> {
     return this.http.get(`${this.baseUrl}/${id}`, {headers: this.headerApplicationJson});
   }
+
+  doAddItemToCart(cart: object): Observable<any> {
+    return this.http.post(`${this.baseUrl}`, cart, {headers: this.headerApplicationJson});
+  }
+  doUpdateItemToCart(cart: object): Observable<any> {
+    return this.http.put(`${this.baseUrl}`, cart, {headers: this.headerApplicationJson});
+  }
+
+  doDeleteItemByCartDetailId(id: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/${id}`, {headers: this.headerApplicationJson});
+  }
 }

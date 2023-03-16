@@ -1,8 +1,9 @@
 import { OrderDetail } from "./order-detail";
+import { Customer } from './customer';
 
 export class Order {
     id: number;
-    orderDetails: OrderDetail[] = [new OrderDetail];
+    customer: Customer = new Customer();
+    orderDetails: OrderDetail[] = [new OrderDetail()];
     createDate: Date;
-    hi: string;
 }
