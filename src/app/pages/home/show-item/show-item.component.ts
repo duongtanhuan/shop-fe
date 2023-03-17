@@ -6,6 +6,7 @@ import { Item } from "src/app/models/item";
 import { CartService } from "src/app/services/cart.service";
 import { ItemService } from "src/app/services/item.service";
 import { CartDetailService } from "../../../services/cart-detail.service";
+import { ToastrService } from "ngx-toastr";
 
 @Component({
   selector: "app-show-item",
@@ -13,7 +14,6 @@ import { CartDetailService } from "../../../services/cart-detail.service";
   styleUrls: ["./show-item.component.scss"],
 })
 export class ShowItemComponent implements OnInit {
-  
   cartResponse: Cart = new Cart();
   cartRequest: Cart = new Cart();
   cartDetail: CartDetail = new CartDetail();
@@ -22,7 +22,9 @@ export class ShowItemComponent implements OnInit {
   constructor(
     private itemService: ItemService,
     private cartService: CartService,
-    private cartDetailService: CartDetailService
+    private cartDetailService: CartDetailService,
+    private toastr: ToastrService,
+    
   ) {}
 
   ngOnInit() {
@@ -31,10 +33,33 @@ export class ShowItemComponent implements OnInit {
       this.cartResponse = res;
     });
   }
-
+  showSuccess() {
+    this.toastr.success("Hello world!", "Toastr fun!", {
+      timeOut: 300,
+    });
+  }
   getItemAll() {
     this.itemService.doGetAll().subscribe((res) => {
       this.items = res;
+    });
+  }
+
+  newCartDetail(itemId: number) {
+    this.cartRequest.cartDetail.itemId = itemId;
+    this.cartRequest.cartDetail.quantity = 1;
+    this.cartRequest.customerId = 2;
+    this.cartService.doAddItemToCart(this.cartRequest).subscribe(() => {
+      this.showSuccess();
+    });
+  }
+
+  updateCartDetail(itemId: number) {
+    this.cartRequest.cartDetail.id = this.cartDetail.id;
+    this.cartRequest.cartDetail.quantity = this.cartDetail.quantity + 1;
+    this.cartRequest.cartDetail.itemId = itemId;
+    this.cartRequest.customerId = 2;
+    this.cartService.doUpdateItemToCart(this.cartRequest).subscribe(() => {
+      this.toastr.success("View cart and pay", "Add to cart successfully");
     });
   }
 
@@ -44,21 +69,9 @@ export class ShowItemComponent implements OnInit {
       .subscribe((res) => {
         this.cartDetail = res;
         if (this.cartDetail != null) {
-          this.cartDetail.quantity += 1;
-          this.cartRequest.cartDetail.id = this.cartDetail.id;
-          this.cartRequest.cartDetail.quantity = this.cartDetail.quantity;
-          this.cartRequest.cartDetail.itemId = itemId;
-          this.cartRequest.customerId = 2;
-          this.cartService
-            .doUpdateItemToCart(this.cartRequest)
-            .subscribe(() => {
-            });
+          this.updateCartDetail(itemId);
         } else {
-          this.cartRequest.cartDetail.itemId = itemId;
-          this.cartRequest.cartDetail.quantity = 1;
-          this.cartRequest.customerId = 2;
-          this.cartService.doAddItemToCart(this.cartRequest).subscribe(() => {
-          });
+          this.newCartDetail(itemId);
         }
       });
   }

@@ -1,30 +1,40 @@
-
 .header {
+  display: flex;
+  justify-content: space-between;
+  background-color: #ffffff;
+  height: 11vh;
+
+  .title-home {
+    display: flex;
+    justify-content: center;
+    width: 15%;
+    height: 100%;
+    background-color: antiquewhite;
+  }
+
+  .menu-header {
     display: flex;
     justify-content: space-between;
-    background-color: #FFFFFF;
-    height: 11vh;
+    width: 40%;
+    height: 100%;
+    padding-top: 17px;
+    padding-left: 5px;
 
-    .title-home {
-        display: flex;
-        justify-content: center;
-        width: 15%;
-        height: 100%;
-        background-color: antiquewhite;
+    .btn:focus {
+      outline: none;
+      box-shadow: none;
     }
-
-    .menu-header {
-        display: flex;
-        justify-content: space-between;
-        width: 40%;
-        height: 100%;
-        // background-color: aqua;
-        padding-top: 17px;
-        padding-left: 5px;
-        padding-right: 50px;
-        
-        .btn:hover {
-            background-color: antiquewhite;
-        }
+    .btn:hover {
+      background-color: aliceblue;
     }
+    .item-cart {
+      margin-right: 60px;
+      .quantity-cart {
+        background-color: aqua;
+        height: 24px;
+        width: 18px;
+        border-radius: 100%;
+      }
+    }
+  }
 }

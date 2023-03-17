@@ -29,7 +29,7 @@ export class HeaderComponent implements OnInit {
   }
   
   goHome() {
-    this.router.navigate(['home'], { relativeTo: this.route });
+    this.router.navigate([''], { relativeTo: this.route });
   }
 
   goCart() {

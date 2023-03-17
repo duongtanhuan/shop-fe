@@ -24,6 +24,34 @@
             height: 30vh;
             background-color: #FFFFFF;
 
+            .increase {
+                display: flex;
+                justify-content: space-between;
+                height: 30px;
+                width: 90px;
+                text-align: center;
+                background-color: aliceblue;
+
+                .plus {
+                    text-align: center;
+                    background-color: rgba(192, 192, 192, 0.518);
+                    width: 30%;
+                    border-top-left-radius: 5px;
+                    border-bottom-left-radius: 5px;
+                } 
+                .in {
+                    text-align: center;
+                    width: 40%;
+                } 
+                .minus {
+                    text-align: center;
+                    background-color: rgba(192, 192, 192, 0.518);
+                    width: 30%;
+                    border-top-right-radius: 5px;
+                    border-bottom-right-radius: 5px;
+                    font-size: 18px;
+                }
+            }
             .card-body{
                 height: 77%;
             }

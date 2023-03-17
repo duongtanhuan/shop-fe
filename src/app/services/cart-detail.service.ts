@@ -17,4 +17,8 @@ export class CartDetailService {
   doGetCartDetailByCartIdAndItemId(cartId: number, itemId: number): Observable<any> {
     return this.http.get(`${this.baseUrl}/${cartId}/${itemId}`, {headers: this.headerApplicationJson});
   }
+
+  doGetCartDetailById(cartDetailId: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/${cartDetailId}`, {headers: this.headerApplicationJson});
+  }
 }
