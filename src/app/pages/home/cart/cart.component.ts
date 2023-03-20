@@ -1,8 +1,9 @@
 import { Component, OnInit } from "@angular/core";
+import { OrderDetail } from "src/app/models/order-detail";
+import { CartDetailService } from "src/app/services/cart-detail.service";
+import { CartService } from "src/app/services/cart.service";
 import { Cart } from "../../../models/cart";
 import { CartDetail } from "../../../models/cart-detail";
-import { CartService } from "src/app/services/cart.service";
-import { CartDetailService } from "src/app/services/cart-detail.service";
 
 @Component({
   selector: "app-cart",
@@ -13,9 +14,10 @@ export class CartComponent implements OnInit {
   cartResponse: Cart = new Cart();
   cartRequest: Cart = new Cart();
   cartDetail: CartDetail = new CartDetail();
-  quantity: number = 0;
-  isIncrease = false;
-  isDecrease = false;
+  orderDetails: OrderDetail[] = [];
+  isChecked: boolean;
+  priceTotal: number = 0;
+
   constructor(
     private cartService: CartService,
     private cartDetailService: CartDetailService
@@ -24,51 +26,87 @@ export class CartComponent implements OnInit {
   ngOnInit() {
     this.getCartByCustomerId(2);
   }
+
+  checkOut() {
+    this.orderDetails.forEach((o) => {});
+  }
+
+  pushItemToOrderDetails(cartDetail: CartDetail, value: any) {
+    // this.cartDetail.itemId = cartDetail.item.id;
+    const cartDetaiRequest = Object.assign(cartDetail, this.cartDetail);
+    console.log(cartDetail);
+    if (value.target.checked) {
+      this.orderDetails.push(cartDetail);
+    } else {
+      this.orderDetails = this.orderDetails.filter(
+        (c) => c.id !== cartDetail.id
+      );
+    }
+    this.priceTotal = 0;
+    this.orderDetails.forEach((o) => {
+      if (o) {
+        this.priceTotal += o.item.price * o.quantity;
+        this;
+      } else {
+        this.priceTotal = 0;
+      }
+    });
+  }
+
   getCartByCustomerId(id: number) {
     this.cartService.doGetCartByCustomerId(id).subscribe((res) => {
       this.cartResponse = res;
-      // this.quantity = this.cartResponse.cartDetail.quantity;
     });
   }
 
   deleteItemByCartDetailId(id: number) {
-    this.cartService.doDeleteItemByCartDetailId(id).subscribe(() => {});
+    this.cartService.doDeleteItemByCartDetailId(id).subscribe(() => {
+      this.getCartByCustomerId(2);
+    });
   }
 
-  increaseItemQuantity() {
-    console.log("plus");
-    this.isIncrease = true;
-    this.isDecrease = false;
+  increaseItemQuantity(cartDetail: CartDetail) {
+    if (cartDetail.quantity) {
+      cartDetail.quantity += 1;
+    } else {
+      cartDetail.quantity = 1;
+    }
+    this.updateItemInCart(cartDetail);
+    console.log(cartDetail);
   }
 
-  decreaseItemQuantity() {
-    console.log("minus");
-    this.isDecrease = true;
-    this.isIncrease = false;
+  onChangeItemQuantity(cartDetail: CartDetail, newValue: any) {
+    if (cartDetail.quantity) {
+      cartDetail.quantity = newValue.target.value;
+    } else {
+      cartDetail.quantity = 1;
+    }
+    this.updateItemInCart(cartDetail);
   }
 
-  updateItemInCart(cartId: number, itemId: number) {
+  decreaseItemQuantity(cartDetail: CartDetail) {
+    if (cartDetail.quantity) {
+      cartDetail.quantity -= 1;
+    } else {
+      cartDetail.quantity = 1;
+    }
+    this.updateItemInCart(cartDetail);
+  }
+
+  updateItemInCart(cartDetail: CartDetail) {
     this.cartDetailService
-      .doGetCartDetailByCartIdAndItemId(cartId, itemId)
+      .doGetCartDetailById(cartDetail.id)
       .subscribe((res) => {
         this.cartDetail = res;
         if (this.cartDetail) {
           this.cartRequest.cartDetail.id = this.cartDetail.id;
-          if ((this.isIncrease = true)) {
-            this.cartRequest.cartDetail.quantity = this.cartDetail.quantity + 1;
-          }
-          if ((this.isDecrease = true)) {
-            this.cartRequest.cartDetail.quantity = this.cartDetail.quantity - 1;
-          }
-          this.cartRequest.cartDetail.itemId = itemId;
+          this.cartRequest.cartDetail.quantity = cartDetail.quantity;
+          this.cartRequest.cartDetail.itemId = this.cartDetail.item.id;
           this.cartRequest.customerId = 2;
-          console.log("request", this.cartRequest);
-          // this.cartService
-          //   .doUpdateItemToCart(this.cartRequest)
-          //   .subscribe(() => {});
+          this.cartService
+            .doUpdateItemToCart(this.cartRequest)
+            .subscribe(() => {});
         }
       });
-    this.getCartByCustomerId(2);
-    console.log("change");
   }
 }

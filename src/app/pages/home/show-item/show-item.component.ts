@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { ToastrService } from "ngx-toastr";
 import { Observable } from "rxjs";
 import { Cart } from "src/app/models/cart";
 import { CartDetail } from "src/app/models/cart-detail";
@@ -6,7 +7,6 @@ import { Item } from "src/app/models/item";
 import { CartService } from "src/app/services/cart.service";
 import { ItemService } from "src/app/services/item.service";
 import { CartDetailService } from "../../../services/cart-detail.service";
-import { ToastrService } from "ngx-toastr";
 
 @Component({
   selector: "app-show-item",
@@ -64,6 +64,7 @@ export class ShowItemComponent implements OnInit {
   }
 
   addItemToCart(itemId: number) {
+    console.log("ro")
     this.cartDetailService
       .doGetCartDetailByCartIdAndItemId(this.cartResponse.id, itemId)
       .subscribe((res) => {

@@ -2,31 +2,64 @@
     <div class="show-cart">
         <h4>CART</h4>
         <div class="nav-bar-show-cart">
-            <div class="row">
-                <div class="col-3">
-                    <p class="item-nav text-secondary">
+            <div class="card-body d-flex">
+                <div>
+                    <div class="col-1">
+                        <input class="checkbox-lg" type="checkbox" name="" id="">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-2">
                         All item
-                    </p>
+                    </div>
+                    <div class="col-3">
+                        Price
+                    </div>
+                    <div class="col-3">
+                        Quantity
+                    </div>
+                    <div class="col-2">
+                        Total
+                    </div>
+                    <div class="col-2">
+                        <div class="delete">
+                            <i class="bi bi-trash3"></i>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="card-cart-detail" *ngFor="let cartDetail of cartResponse.cartDetails">
-            <div class="card-body d-flex justify-content-between pt-5">
-                <div>{{cartDetail.item.name}}</div>
-                <div>{{cartDetail.item.price}} vnd</div>
-                <!-- <div>{{cartDetail.quantity}}</div> -->
-                <div class="increase">
-                    <div class="plus" (click)="increaseItemQuantity()">
-                        +
-                    </div>
-                    <input type="text" class="in" [(ngModel)]="quantity"  name="quantity"  (change)="updateItemInCart(cartResponse.id, cartDetail.item.id)">
-                    <div class="minus" (click)="decreaseItemQuantity()">
-                        <!-- <i class="bi bi-dash"></i> -->
-                        -
+            <div class="card-body d-flex">
+                <div>
+                    <div class="col-1">
+                        <input class="checkbox-lg" type="checkbox" name="" id="" (click)="pushItemToOrderDetails(cartDetail, $event)">
                     </div>
                 </div>
-                <div>{{cartDetail.item.price * cartDetail.quantity}} vnd</div>
-                <div><span (click)="deleteItemByCartDetailId(cartDetail.id)"><i class="bi bi-trash3"></i></span></div>
+                <div class="row">
+                    <div class="col-2">{{cartDetail.item.name}}</div>
+                    <div class="col-3">{{cartDetail.item.price}} vnd</div>
+                    <div class="change-quantity col-3">
+                        <div class="plus text-muted" (click)="increaseItemQuantity(cartDetail)">
+                            +
+                        </div>
+                        <input type="text" class="in" [value]="cartDetail.quantity"
+                            (change)="onChangeItemQuantity(cartDetail, $event)">
+
+                        <div class="minus text-muted" (click)="decreaseItemQuantity(cartDetail)">
+                            <p class="mt">
+                                <i class="bi bi-dash"></i>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-2">{{cartDetail.item.price * cartDetail.quantity}} vnd</div>
+
+                    <div class="col-2">
+                        <div class="delete" (click)="deleteItemByCartDetailId(cartDetail.id)">
+                            <i class="bi bi-trash3"></i>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="card-footer">
                 <h6>Discount shop</h6>
@@ -34,6 +67,22 @@
         </div>
     </div>
     <div class="infor-checkout">
+        <div class="address">
 
+        </div>
+        <div class="checkout">
+            <div class="d-flex justify-content-between">
+                <p class="text-muted">Provisional</p>
+                <p>0vnd</p>
+            </div>
+            <hr>
+            <div class="d-flex justify-content-between">
+                <p class="text-muted">Total</p>
+                <p>{{priceTotal}} vnd</p>
+            </div>
+        </div>
+        <div class="btnCheckout">
+            <button type="button" class="btn btn-danger">Check out ({{orderDetails.length}})</button>
+        </div>
     </div>
 </div>

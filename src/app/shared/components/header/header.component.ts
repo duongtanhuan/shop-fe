@@ -1,22 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Cart } from 'src/app/models/cart';
-import { CartService } from 'src/app/services/cart.service';
-import { CartDetail } from '../../../models/cart-detail';
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
+import { CartService } from "src/app/services/cart.service";
+import { CartDetail } from "../../../models/cart-detail";
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  selector: "app-header",
+  templateUrl: "./header.component.html",
+  styleUrls: ["./header.component.scss"],
 })
 export class HeaderComponent implements OnInit {
-
   cartDetails: CartDetail[] = [new CartDetail()];
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private cartService: CartService
-    ) { }
+  ) {}
 
   ngOnInit() {
     this.cartService.doGetCartByCustomerId(2).subscribe((res) => {
@@ -25,14 +24,14 @@ export class HeaderComponent implements OnInit {
   }
 
   goMyOrder() {
-    this.router.navigate(['my-order'], { relativeTo: this.route });
+    this.router.navigate(["my-order"], { relativeTo: this.route });
   }
-  
+
   goHome() {
-    this.router.navigate([''], { relativeTo: this.route });
+    this.router.navigate([""], { relativeTo: this.route });
   }
 
   goCart() {
-    this.router.navigate(['cart'], { relativeTo: this.route });
+    this.router.navigate(["cart"], { relativeTo: this.route });
   }
 }
