@@ -18,4 +18,8 @@ export class OrderService {
   doGetAllByCustomerId(id: number): Observable<any> {
     return this.http.get(`${this.baseUrl}/${id}`, {headers: this.headerApplicationJson});
   }
+
+  doCreateOrder(order: Object): Observable<any> {
+    return this.http.post(`${this.baseUrl}`, order, {headers: this.headerApplicationJson})
+  }
 }

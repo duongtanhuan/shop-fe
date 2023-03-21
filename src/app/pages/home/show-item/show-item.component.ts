@@ -1,5 +1,4 @@
-import { Component, OnInit } from "@angular/core";
-import { ToastrService } from "ngx-toastr";
+import { Component, Input, OnInit } from "@angular/core";
 import { Observable } from "rxjs";
 import { Cart } from "src/app/models/cart";
 import { CartDetail } from "src/app/models/cart-detail";
@@ -14,6 +13,7 @@ import { CartDetailService } from "../../../services/cart-detail.service";
   styleUrls: ["./show-item.component.scss"],
 })
 export class ShowItemComponent implements OnInit {
+  @Input() sizeCart: number;
   cartResponse: Cart = new Cart();
   cartRequest: Cart = new Cart();
   cartDetail: CartDetail = new CartDetail();
@@ -22,22 +22,24 @@ export class ShowItemComponent implements OnInit {
   constructor(
     private itemService: ItemService,
     private cartService: CartService,
-    private cartDetailService: CartDetailService,
-    private toastr: ToastrService,
-    
+    private cartDetailService: CartDetailService
   ) {}
 
   ngOnInit() {
     this.getItemAll();
-    this.cartService.doGetCartByCustomerId(2).subscribe((res) => {
+    this.getCartByCustomerId(2);
+  }
+
+  getCartByCustomerId(id: number) {
+    this.cartService.doGetCartByCustomerId(id).subscribe((res) => {
       this.cartResponse = res;
+
+      if (this.cartResponse) {
+        this.sizeCart = res.cartDetails.length;
+      }
     });
   }
-  showSuccess() {
-    this.toastr.success("Hello world!", "Toastr fun!", {
-      timeOut: 300,
-    });
-  }
+
   getItemAll() {
     this.itemService.doGetAll().subscribe((res) => {
       this.items = res;
@@ -48,9 +50,7 @@ export class ShowItemComponent implements OnInit {
     this.cartRequest.cartDetail.itemId = itemId;
     this.cartRequest.cartDetail.quantity = 1;
     this.cartRequest.customerId = 2;
-    this.cartService.doAddItemToCart(this.cartRequest).subscribe(() => {
-      this.showSuccess();
-    });
+    this.cartService.doAddItemToCart(this.cartRequest).subscribe(() => {});
   }
 
   updateCartDetail(itemId: number) {
@@ -58,13 +58,10 @@ export class ShowItemComponent implements OnInit {
     this.cartRequest.cartDetail.quantity = this.cartDetail.quantity + 1;
     this.cartRequest.cartDetail.itemId = itemId;
     this.cartRequest.customerId = 2;
-    this.cartService.doUpdateItemToCart(this.cartRequest).subscribe(() => {
-      this.toastr.success("View cart and pay", "Add to cart successfully");
-    });
+    this.cartService.doUpdateItemToCart(this.cartRequest).subscribe(() => {});
   }
 
   addItemToCart(itemId: number) {
-    console.log("ro")
     this.cartDetailService
       .doGetCartDetailByCartIdAndItemId(this.cartResponse.id, itemId)
       .subscribe((res) => {
@@ -75,5 +72,6 @@ export class ShowItemComponent implements OnInit {
           this.newCartDetail(itemId);
         }
       });
+    this.getCartByCustomerId(2);
   }
 }

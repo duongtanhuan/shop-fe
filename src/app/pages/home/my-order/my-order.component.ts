@@ -20,7 +20,6 @@ export class MyOrderComponent implements OnInit {
   getOrdersByCustomerId(id: number) {
     this.service.doGetAllByCustomerId(id).subscribe((res) => {
       this.orders = res;
-      console.log(this.orders)
     })
   }
 }

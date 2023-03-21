@@ -6,6 +6,7 @@
         <div class="row mt-4">
             <div class="col-3 mt-2"  *ngFor="let item of items; index as i;">
                 <div class="item">
+                    {{sizeCart}}
                     <div>Name: {{item.name}}</div>
                     <div class="mt-3">Price: {{item.price}}</div>
                     <button type="button" class="btn btn-danger" (click)="addItemToCart(item.id)">Add to Carts</button>

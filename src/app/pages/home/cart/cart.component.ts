@@ -1,7 +1,9 @@
 import { Component, OnInit } from "@angular/core";
+import { Order } from "src/app/models/order";
 import { OrderDetail } from "src/app/models/order-detail";
 import { CartDetailService } from "src/app/services/cart-detail.service";
 import { CartService } from "src/app/services/cart.service";
+import { OrderService } from "src/app/services/order.service";
 import { Cart } from "../../../models/cart";
 import { CartDetail } from "../../../models/cart-detail";
 
@@ -14,13 +16,15 @@ export class CartComponent implements OnInit {
   cartResponse: Cart = new Cart();
   cartRequest: Cart = new Cart();
   cartDetail: CartDetail = new CartDetail();
+  orderRequest: Order = new Order();
   orderDetails: OrderDetail[] = [];
   isChecked: boolean;
   priceTotal: number = 0;
-
+  itemQuantity: number;
   constructor(
     private cartService: CartService,
-    private cartDetailService: CartDetailService
+    private cartDetailService: CartDetailService,
+    private orderService: OrderService
   ) {}
 
   ngOnInit() {
@@ -32,9 +36,10 @@ export class CartComponent implements OnInit {
   }
 
   pushItemToOrderDetails(cartDetail: CartDetail, value: any) {
-    // this.cartDetail.itemId = cartDetail.item.id;
-    const cartDetaiRequest = Object.assign(cartDetail, this.cartDetail);
-    console.log(cartDetail);
+    Object.assign(cartDetail, {
+      itemId: cartDetail.item.id,
+    });
+
     if (value.target.checked) {
       this.orderDetails.push(cartDetail);
     } else {
@@ -50,6 +55,18 @@ export class CartComponent implements OnInit {
       } else {
         this.priceTotal = 0;
       }
+    });
+
+    Object.assign(this.orderRequest, {
+      customerId: 2,
+      orderDetails: this.orderDetails,
+    });
+  }
+
+  createOrder() {
+    this.orderService.doCreateOrder(this.orderRequest).subscribe(() => {
+      this.orderRequest = new Order();
+      this.getCartByCustomerId(2);
     });
   }
 
@@ -71,8 +88,8 @@ export class CartComponent implements OnInit {
     } else {
       cartDetail.quantity = 1;
     }
+    this.itemQuantity = cartDetail.quantity;
     this.updateItemInCart(cartDetail);
-    console.log(cartDetail);
   }
 
   onChangeItemQuantity(cartDetail: CartDetail, newValue: any) {
@@ -81,6 +98,7 @@ export class CartComponent implements OnInit {
     } else {
       cartDetail.quantity = 1;
     }
+    this.itemQuantity = cartDetail.quantity;
     this.updateItemInCart(cartDetail);
   }
 
@@ -90,6 +108,7 @@ export class CartComponent implements OnInit {
     } else {
       cartDetail.quantity = 1;
     }
+    this.itemQuantity = cartDetail.quantity;
     this.updateItemInCart(cartDetail);
   }
 

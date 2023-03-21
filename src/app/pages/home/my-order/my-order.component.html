@@ -13,20 +13,18 @@
             </div>
         </div>
         <div class="card-item" *ngFor="let order of orders">
-            <div class="card-header text-muted"><i class="bi bi-truck"></i> Successful delivery</div>
-            <div class="card-body" *ngFor="let orderDetail of order.orderDetails">
-                <div class="d-flex justify-content-between">
-                    <div>
-                        <p>{{orderDetail.item.name}}</p>
-                        <p>Quanitty: {{orderDetail.quantity}}</p>
-                    </div>
-                    <p>{{orderDetail.item.price}} vnd</p>
+            <div><i class="bi bi-truck"></i> Successful delivery</div>
+            <hr>
+            <div class="body" *ngFor="let orderDetail of order.orderDetails">
+                <div>
+                    <p>{{orderDetail.item.name}}</p>
+                    <p>Quanitty: {{orderDetail.quantity}}</p>
                 </div>
+                <p>{{orderDetail.item.price * orderDetail.quantity}} vnd</p>
             </div>
-            <div class="card-footer bg-white d-flex justify-content-end">
-                <p>Total price: </p>
-                <div class="total-price">
-                </div>
+            <hr>
+            <div class="footer">
+                Total price: {{order.totalPrice}} vnd
             </div>
         </div>
     </div>

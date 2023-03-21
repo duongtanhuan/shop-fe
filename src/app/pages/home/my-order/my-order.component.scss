@@ -27,19 +27,31 @@
         }
 
         .card-item {
-            height: 45vh;
+            height: auto;
             margin-top: 10px;
             background-color: #FFFFFF;
             border-radius: 4px;
-            padding-left: 10px;
-            padding-right: 10px;
-            .card-header {
-                height: 20%;
-                background-color: #FFFFFF;
+            padding: 20px;
+            .body {
+                height: auto;
+                height: 40%;
+                display: flex;
+                justify-content: space-between;
             }
-            .card-body{
-                height: 43%;
+            .footer {
+                display: flex;
+                justify-content: flex-end;
+                height: 15%;
             }
+            // padding-left: 10px;
+            // padding-right: 10px;
+            // .card-header {
+            //     height: 20%;
+            //     background-color: #FFFFFF;
+            // }
+            // .card-body{
+            //     height: 43%;
+            // }
         }
     }
 }
