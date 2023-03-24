@@ -18,7 +18,7 @@ export class ShowItemComponent implements OnInit {
   cartRequest: Cart = new Cart();
   cartDetail: CartDetail = new CartDetail();
   items: Observable<Item[]>;
-
+  
   constructor(
     private itemService: ItemService,
     private cartService: CartService,

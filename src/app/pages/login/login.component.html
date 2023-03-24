@@ -1,16 +1,43 @@
 <div class="main">
     <div class="form">
-        <div>
-            <label for="id">User</label>
-
-            <select class="form-select form-select-sm" ng-model="id" name="id">
-                <option selected>Open this select menu</option>
-                <option value="1">Customer1</option>
-                <option value="2">Customer2</option>
-                <option value="3">Admin1</option>
-                <option value="4">Customer3</option>
-            </select>
+        <div class="title">
+            <h2 class="fw-bold mb-2 text-uppercase text-info"><i class="bi bi-balloon-heart-fill"></i>Login</h2>
+            <p class="text-info">Please enter your login and password.</p>
         </div>
-        <button type="button" class="btn btn-success" (click)="getId()">Log in</button>
+        <div class="input">
+            <form [formGroup]="loginForm" (ngSubmit)="login()">
+                <div class="alert alert-danger mb-3 mt-3" *ngIf="invalidMessage">
+                    <span>{{invalidMessage}}</span>
+                </div>
+                <div class="mb-4">
+                    <label class="text-muted" for="username">Username</label>
+                    <input type="text" name="username" class="form-control form-control-lm" placeholder="Username"
+                        formControlName="username" required />
+                    <div class="mt-2"
+                        *ngIf="loginForm.controls['username'].touched && loginForm.controls['username'].invalid">
+                        <span class="text-danger" *ngIf="loginForm.controls['username'].errors.required"> Username is
+                            required*</span>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <label class="text-muted" for="username">Password</label>
+                    <input type="password" name="password" class="form-control form-control-lm" placeholder="Password"
+                        formControlName="password" required />
+                    <div class="mt-2"
+                        *ngIf="loginForm.controls['password'].touched && loginForm.controls['password'].invalid">
+                        <span class="text-danger" *ngIf="loginForm.controls['password'].errors.required"> Password is
+                            required*</span>
+                    </div>
+                </div>
+                <div class="mt-4 mb-4">
+                    <button type="submit" class="btn btn-info w-100">LOGIN</button>
+                </div>
+                <a routerLink="" routerLinkActive="active" class="register text-info">Forgot password?</a>
+                <div class="d-flex mt-3">
+                    <p>Don't have an account?</p>
+                    <a routerLink="/register" routerLinkActive="active" class="register text-info">Register here</a>
+                </div>
+            </form>
+        </div>
     </div>
 </div>

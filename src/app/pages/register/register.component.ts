@@ -1,23 +1,33 @@
 import { Component, OnInit } from "@angular/core";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { FormArray, FormControl, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Auth } from "src/app/models/auth";
-import { AuthService } from "../../services/auth.service";
+import { AuthService } from "src/app/services/auth.service";
 
 @Component({
-  selector: "app-login",
-  templateUrl: "./login.component.html",
-  styleUrls: ["./login.component.scss"],
+  selector: "app-register",
+  templateUrl: "./register.component.html",
+  styleUrls: ["./register.component.scss"],
 })
-export class LoginComponent implements OnInit {
+export class RegisterComponent implements OnInit {
   auth: Auth = new Auth();
   authResponse: Auth = new Auth();
   invalidMessage: string;
-  roles: string[];
+  roles: Array<any> = [""];
 
   loginForm = new FormGroup({
-    username: new FormControl("", Validators.required),
-    password: new FormControl("", Validators.required),
+    username: new FormControl("", [
+      Validators.required,
+      Validators.minLength(5),
+      Validators.maxLength(15),
+    ]),
+    email: new FormControl("", [Validators.required, Validators.email]),
+    password: new FormControl("", [
+      Validators.required,
+      Validators.minLength(5),
+      Validators.maxLength(10),
+    ]),
+    roles: new FormArray([]),
   });
 
   constructor(
@@ -26,7 +36,9 @@ export class LoginComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.loginForm);
+  }
 
   login() {
     this.auth = new Auth();
@@ -68,5 +80,25 @@ export class LoginComponent implements OnInit {
 
   get Password() {
     return this.loginForm.get("password");
+  }
+  
+  setRoles(role: string, value: any) {
+    if (value.target.checked) {
+      this.roles.push(role);
+    } else {
+      this.roles.filter((r) => {
+        return r !== role;
+      });
+    }
+    console.log("rolet", this.roles);
+    this.loginForm.patchValue({});
+  }
+
+  get Email() {
+    return this.loginForm.get("email");
+  }
+
+  get Roles(): FormArray {
+    return this.loginForm.get("roles") as FormArray;
   }
 }

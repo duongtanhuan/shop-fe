@@ -21,6 +21,7 @@ export class ItemManagementComponent implements OnInit {
     itemName: new FormControl("", Validators.required),
     itemPrice: new FormControl("", Validators.required),
   });
+  
   constructor(private itemService: ItemService) {}
 
   ngOnInit() {

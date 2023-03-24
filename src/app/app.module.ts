@@ -16,6 +16,7 @@ import { LoginComponent } from "./pages/login/login.component";
 import { CartComponent } from "./pages/home/cart/cart.component";
 import { ToastContainerModule, ToastrModule } from "ngx-toastr";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { RegisterComponent } from './pages/register/register.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
     ShowItemComponent,
     LoginComponent,
     CartComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,

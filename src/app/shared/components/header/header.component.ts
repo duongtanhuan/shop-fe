@@ -20,6 +20,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.cartService.doGetCartByCustomerId(2).subscribe((res) => {
       this.cartDetails = res.cartDetails;
+      console.log("carrgs",this.cartDetails)
     });
   }
 

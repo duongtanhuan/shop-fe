@@ -1,0 +1,37 @@
+.main {
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f5f5fb;
+  padding-top: 50px;
+  padding-bottom: 30px;
+  overflow: hidden;
+
+  .form {
+    height: auto;
+    width: 45%;
+    background-color: white;
+    border-radius: 2%;
+
+    .title {
+      height: 110px;
+      text-align: center;
+      padding-top: 40px;
+    }
+
+    .input {
+      margin-top: 50px;
+      margin-left: 50px;
+      margin-right: 50px;
+      height: auto;
+      a:hover {
+        text-decoration: none;
+        color: aquamarine;
+      }
+
+      .register {
+        margin-left: 2px;
+      }
+    }
+  }
+}
