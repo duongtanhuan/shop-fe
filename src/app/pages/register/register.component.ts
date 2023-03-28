@@ -1,8 +1,9 @@
 import { Component, OnInit } from "@angular/core";
-import { FormArray, FormControl, FormGroup, Validators } from "@angular/forms";
+import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Auth } from "src/app/models/auth";
 import { AuthService } from "src/app/services/auth.service";
+import { mustMatch } from "../../helpers/must-match.validators";
 
 @Component({
   selector: "app-register",
@@ -12,60 +13,68 @@ import { AuthService } from "src/app/services/auth.service";
 export class RegisterComponent implements OnInit {
   auth: Auth = new Auth();
   authResponse: Auth = new Auth();
-  invalidMessage: string;
-  roles: Array<any> = [""];
-
-  loginForm = new FormGroup({
-    username: new FormControl("", [
-      Validators.required,
-      Validators.minLength(5),
-      Validators.maxLength(15),
-    ]),
-    email: new FormControl("", [Validators.required, Validators.email]),
-    password: new FormControl("", [
-      Validators.required,
-      Validators.minLength(5),
-      Validators.maxLength(10),
-    ]),
-    roles: new FormArray([]),
-  });
+  message: string;
+  roles: Array<any> = [];
+  registerForm: FormGroup;
+  submitted = false;
 
   constructor(
     private authService: AuthService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private fb: FormBuilder
   ) {}
 
   ngOnInit() {
-    console.log(this.loginForm);
+    this.registerForm = this.fb.group(
+      {
+        username: [
+          "",
+          Validators.compose([
+            Validators.required,
+            Validators.minLength(3),
+            Validators.maxLength(20),
+          ]),
+        ],
+        password: [
+          "",
+          Validators.compose([Validators.required, Validators.minLength(5)]),
+        ],
+        confirmPassword: ["", Validators.compose([Validators.required])],
+        email: [
+          "",
+          Validators.compose([Validators.required, Validators.email]),
+        ],
+        roles: this.fb.array([this.fb.control("user")]),
+      },
+      {
+        validator: mustMatch("password", "confirmPassword"),
+      }
+    );
   }
 
-  login() {
-    this.auth = new Auth();
-    this.auth.username = this.Username.value;
-    this.auth.password = this.Password.value;
+  register() {
+    this.submitted = true;
 
-    this.authService.doPostCredentials(this.auth).subscribe({
+    if (this.registerForm.invalid) {
+      return;
+    }
+
+    this.authService.doPostRegisterAccount(this.registerForm.value).subscribe({
       next: (data) => {
-        this.authResponse = data;
-        this.invalidMessage = null;
-        this.roles = data.roles;
-        var role = this.roles.find((s: string) => {
-          return s == "admin";
-        });
-        if (role == "admin") {
-          this.goAdmin();
-        } else {
-          this.goHome();
-        }
+        this.message = data.message;
       },
-      error: (err) => {
-        (this.invalidMessage = err.error.message),
-          console.log("error", this.invalidMessage);
+      error: () => {
+        this.message = "User registered failure.";
       },
     });
+    this.onReset();
   }
 
+  onReset() {
+    this.submitted = false;
+    this.registerForm.reset();
+  }
   goAdmin() {
     this.router.navigate(["/", "admin", "item"], { relativeTo: this.route });
   }
@@ -74,31 +83,51 @@ export class RegisterComponent implements OnInit {
     this.router.navigate([""], { relativeTo: this.route });
   }
 
+  get f() {
+    return this.registerForm.controls;
+  }
   get Username() {
-    return this.loginForm.get("username");
+    return this.registerForm.get("username");
   }
 
   get Password() {
-    return this.loginForm.get("password");
+    return this.registerForm.get("password");
   }
-  
+
+  addRoles() {
+    this.Roles.push(this.fb.control(""));
+  }
+
+  removeRoles() {
+    this.Roles.removeAt(0);
+  }
+
   setRoles(role: string, value: any) {
+    const checkRole = this.roles.filter((r) => {
+      return r === "admin" || r === "user";
+    });
+
     if (value.target.checked) {
-      this.roles.push(role);
+      if (!checkRole.includes("admin") || !checkRole.includes("user")) {
+        this.addRoles();
+        this.roles.push(role);
+      }
     } else {
-      this.roles.filter((r) => {
+      this.roles = this.roles.filter((r) => {
         return r !== role;
       });
+      this.removeRoles();
     }
-    console.log("rolet", this.roles);
-    this.loginForm.patchValue({});
+    this.registerForm.patchValue({
+      roles: this.roles,
+    });
   }
 
   get Email() {
-    return this.loginForm.get("email");
+    return this.registerForm.get("email");
   }
 
   get Roles(): FormArray {
-    return this.loginForm.get("roles") as FormArray;
+    return this.registerForm.get("roles") as FormArray;
   }
 }

@@ -1,8 +1,9 @@
 import { Component, OnInit } from "@angular/core";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Auth } from "src/app/models/auth";
 import { AuthService } from "../../services/auth.service";
+import { CommonService } from "../../services/common.service";
 
 @Component({
   selector: "app-login",
@@ -14,44 +15,71 @@ export class LoginComponent implements OnInit {
   authResponse: Auth = new Auth();
   invalidMessage: string;
   roles: string[];
-
-  loginForm = new FormGroup({
-    username: new FormControl("", Validators.required),
-    password: new FormControl("", Validators.required),
-  });
+  submitted = false;
+  loginForm: FormGroup;
+  isAdmin: string;
 
   constructor(
     private authService: AuthService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private fb: FormBuilder,
+    private commonService: CommonService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.loginForm = this.fb.group({
+      username: ["", Validators.required],
+      password: ["", Validators.required],
+    });
+  }
+
+  get f() {
+    return this.loginForm.controls;
+  }
+  onReset() {
+    this.submitted = false;
+    this.loginForm.reset();
+  }
 
   login() {
+    this.submitted = true;
+
+    if (this.loginForm.invalid) {
+      return;
+    }
+
     this.auth = new Auth();
     this.auth.username = this.Username.value;
     this.auth.password = this.Password.value;
 
     this.authService.doPostCredentials(this.auth).subscribe({
       next: (data) => {
+        this.commonService.setCustomerId(data.id);
+        this.commonService.setToken(data.token)
+
         this.authResponse = data;
         this.invalidMessage = null;
         this.roles = data.roles;
-        var role = this.roles.find((s: string) => {
+        this.roles.filter((s: string) => {
           return s == "admin";
         });
-        if (role == "admin") {
+        if (this.roles.includes("admin") && this.roles.includes("user")) {
+          this.goAdmin();
+        } else if (this.roles.includes("admin")) {
+          this.isAdmin = "admin";
           this.goAdmin();
         } else {
+          this.isAdmin = "";
           this.goHome();
         }
+        this.commonService.setIsAdmin(this.isAdmin);
       },
       error: (err) => {
-        (this.invalidMessage = err.error.message),
-          console.log("error", this.invalidMessage);
+        this.invalidMessage = err.error.message;
       },
     });
+    this.onReset();
   }
 
   goAdmin() {

@@ -1,5 +1,5 @@
 <div class="header">
-    <div class="title-home">
+    <div class="title-home" (click)="goHome()">
         <h4 class="mt-4 text-info">SHOP OWNER</h4>
     </div>
     <div class="menu-header">
@@ -8,17 +8,22 @@
                 <h6><i class="bi bi-house-door"></i> Home</h6>
             </button>
         </div>
-        <div>
-            <button type="button" class="btn text-muted" (click)="goMyOrder()">
-                <h6><i class="bi bi-person-square"></i> My Order</h6>
+        <div class="dropdown">
+            <button type="button" class="btn text-muted">
+                <h6><i class="bi bi-person-square"></i> Account</h6>
             </button>
+            <div class="dropdown-content">
+                <span href="#" [hidden]="isAdmin">My account</span>
+                <span  (click)="goMyOrder()" [hidden]="isAdmin">My order</span>
+                <span  (click)="logout()">Log out</span>
+            </div>
         </div>
         <div class="item-cart">
-            <button type="button" class="btn text-info d-flex" (click)="goCart()">
+            <button type="button" class="btn text-info d-flex" (click)="goCart()" [disabled]="isAdmin">
                 <h4><i class="bi bi-cart2"></i></h4>
 
                 <div class="quantity-cart">
-                    {{cartDetails.length}}
+                    {{sizeCart}}
                 </div>
             </button>
         </div>

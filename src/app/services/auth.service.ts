@@ -1,21 +1,26 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
+import { AUTH_API } from "../constant/api";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class AuthService {
-
-  private baseUrl = 'http://localhost:8080/auth';
-
   private headerApplicationJson = new HttpHeaders({
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   });
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   doPostCredentials(loginForm: object): Observable<any> {
-    return this.http.post(`${this.baseUrl}/login`, loginForm, {headers: this.headerApplicationJson});
+    return this.http.post(`${AUTH_API}/login`, loginForm, {
+      headers: this.headerApplicationJson,
+    });
+  }
+  doPostRegisterAccount(registerForm: object): Observable<any> {
+    return this.http.post(`${AUTH_API}/signup`, registerForm, {
+      headers: this.headerApplicationJson,
+    });
   }
 }

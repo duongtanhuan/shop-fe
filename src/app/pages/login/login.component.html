@@ -12,21 +12,17 @@
                 <div class="mb-4">
                     <label class="text-muted" for="username">Username</label>
                     <input type="text" name="username" class="form-control form-control-lm" placeholder="Username"
-                        formControlName="username" required />
-                    <div class="mt-2"
-                        *ngIf="loginForm.controls['username'].touched && loginForm.controls['username'].invalid">
-                        <span class="text-danger" *ngIf="loginForm.controls['username'].errors.required"> Username is
-                            required*</span>
+                        formControlName="username" [ngClass]="{'is-invalid': submitted && f.username.errors }" />
+                    <div class="invalid-feedback" *ngIf="submitted && f.username.errors">
+                        <span *ngIf="f.username.errors.required">Username is required</span>
                     </div>
                 </div>
                 <div class="mt-3">
                     <label class="text-muted" for="username">Password</label>
                     <input type="password" name="password" class="form-control form-control-lm" placeholder="Password"
-                        formControlName="password" required />
-                    <div class="mt-2"
-                        *ngIf="loginForm.controls['password'].touched && loginForm.controls['password'].invalid">
-                        <span class="text-danger" *ngIf="loginForm.controls['password'].errors.required"> Password is
-                            required*</span>
+                        formControlName="password" [ngClass]="{'is-invalid': submitted && f.password.errors }" />
+                    <div class="invalid-feedback" *ngIf="submitted && f.password.errors">
+                        <span *ngIf="f.password.errors.required">Password is required</span>
                     </div>
                 </div>
                 <div class="mt-4 mb-4">
@@ -36,6 +32,9 @@
                 <div class="d-flex mt-3">
                     <p>Don't have an account?</p>
                     <a routerLink="/register" routerLinkActive="active" class="register text-info">Register here</a>
+                </div>
+                <div class="text-center">
+                    <a routerLink="" routerLinkActive="active" class="register text-info">Home page</a>
                 </div>
             </form>
         </div>

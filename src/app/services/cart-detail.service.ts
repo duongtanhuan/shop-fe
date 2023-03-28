@@ -1,24 +1,28 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
+import { CART_DETAIL_API } from "../constant/api";
+import { CommonService } from "./common.service";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class CartDetailService {
+  constructor(private http: HttpClient, private commonService: CommonService) {}
 
-  private baseUrl = 'http://localhost:8080/cartDetails';
-
-  private headerApplicationJson = new HttpHeaders({
-    'Content-Type': 'application/json',
-  });
-  constructor(private http:HttpClient) { }
+  httpOptions = this.commonService.getHttpOptions();
 
   doGetCartDetailByCartIdAndItemId(cartId: number, itemId: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/${cartId}/${itemId}`, {headers: this.headerApplicationJson});
+    return this.http.get(
+      `${CART_DETAIL_API}/${cartId}/${itemId}`,
+      this.httpOptions
+    );
   }
 
   doGetCartDetailById(cartDetailId: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/${cartDetailId}`, {headers: this.headerApplicationJson});
+    return this.http.get(
+      `${CART_DETAIL_API}/${cartDetailId}`,
+      this.httpOptions
+    );
   }
 }

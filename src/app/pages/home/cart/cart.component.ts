@@ -3,6 +3,7 @@ import { Order } from "src/app/models/order";
 import { OrderDetail } from "src/app/models/order-detail";
 import { CartDetailService } from "src/app/services/cart-detail.service";
 import { CartService } from "src/app/services/cart.service";
+import { CommonService } from "src/app/services/common.service";
 import { OrderService } from "src/app/services/order.service";
 import { Cart } from "../../../models/cart";
 import { CartDetail } from "../../../models/cart-detail";
@@ -21,18 +22,18 @@ export class CartComponent implements OnInit {
   isChecked: boolean;
   priceTotal: number = 0;
   itemQuantity: number;
+  customerId: number;
+
   constructor(
     private cartService: CartService,
     private cartDetailService: CartDetailService,
-    private orderService: OrderService
+    private orderService: OrderService,
+    private commonService: CommonService
   ) {}
 
   ngOnInit() {
-    this.getCartByCustomerId(2);
-  }
-
-  checkOut() {
-    this.orderDetails.forEach((o) => {});
+    this.customerId = this.commonService.getCustomerId();
+    this.getCartByCustomerId(this.customerId);
   }
 
   pushItemToOrderDetails(cartDetail: CartDetail, value: any) {
@@ -58,15 +59,16 @@ export class CartComponent implements OnInit {
     });
 
     Object.assign(this.orderRequest, {
-      customerId: 2,
+      customerId: this.customerId,
       orderDetails: this.orderDetails,
+      status: true,
     });
   }
 
   createOrder() {
     this.orderService.doCreateOrder(this.orderRequest).subscribe(() => {
       this.orderRequest = new Order();
-      this.getCartByCustomerId(2);
+      this.getCartByCustomerId(this.customerId);
     });
   }
 
@@ -78,7 +80,7 @@ export class CartComponent implements OnInit {
 
   deleteItemByCartDetailId(id: number) {
     this.cartService.doDeleteItemByCartDetailId(id).subscribe(() => {
-      this.getCartByCustomerId(2);
+      this.getCartByCustomerId(this.customerId);
     });
   }
 
@@ -121,7 +123,7 @@ export class CartComponent implements OnInit {
           this.cartRequest.cartDetail.id = this.cartDetail.id;
           this.cartRequest.cartDetail.quantity = cartDetail.quantity;
           this.cartRequest.cartDetail.itemId = this.cartDetail.item.id;
-          this.cartRequest.customerId = 2;
+          this.cartRequest.customerId = this.customerId;
           this.cartService
             .doUpdateItemToCart(this.cartRequest)
             .subscribe(() => {});

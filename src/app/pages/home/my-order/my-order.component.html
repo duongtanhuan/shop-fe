@@ -5,27 +5,56 @@
         <h5 class="text-muted mt-5">My order</h5>
         <div class="nav-bar-orders">
             <div class="row">
-                <div class="col-3">
-                    <p class="item-nav text-secondary">
-                        All order
+                <div class="col-2">
+                    <p class="text-secondary">
+                        All  
+                    </p>
+                </div>
+                <div class="col-2">
+                    <p class="text-secondary">
+                        Pending
+                    </p>
+                </div>
+                <div class="col-2">
+                    <p class="text-secondary">
+                        Processing
+                    </p>
+                </div>
+                <div class="col-2">
+                    <p class="text-secondary">
+                        Tranfering
+                    </p>
+                </div>
+                <div class="col-2">
+                    <p class="text-secondary">
+                        Delivered
+                    </p>
+                </div><div class="col-2">
+                    <p class="text-secondary">
+                        Cancelled
                     </p>
                 </div>
             </div>
         </div>
-        <div class="card-item" *ngFor="let order of orders">
-            <div><i class="bi bi-truck"></i> Successful delivery</div>
-            <hr>
-            <div class="body" *ngFor="let orderDetail of order.orderDetails">
-                <div>
-                    <p>{{orderDetail.item.name}}</p>
-                    <p>Quanitty: {{orderDetail.quantity}}</p>
+        <div *ngIf="orders.length > 0; else elseOrderSize">
+            <div class="card-item" *ngFor="let order of orders">
+                <div><i class="bi bi-truck"></i> Successful delivery</div>
+                <hr>
+                <div class="body" *ngFor="let orderDetail of order.orderDetails">
+                    <div>
+                        <p>{{orderDetail.item.name}}</p>
+                        <p>Quanitty: {{orderDetail.quantity}}</p>
+                    </div>
+                    <p *ngIf="orderDetail.item.price && orderDetail.quantity; else elseValue">{{orderDetail.item.price *
+                        orderDetail.quantity}} vnd</p>
                 </div>
-                <p>{{orderDetail.item.price * orderDetail.quantity}} vnd</p>
-            </div>
-            <hr>
-            <div class="footer">
-                Total price: {{order.totalPrice}} vnd
+                <hr>
+                <div class="footer">
+                    Total price: <p *ngIf="order.totalPrice; else elseValue"> {{order.totalPrice}} vnd</p>
+                </div>
+                <ng-template #elseValue>0 vnd</ng-template>
             </div>
         </div>
+        <ng-template #elseOrderSize>There is no any cart detail to display.</ng-template>
     </div>
 </div>

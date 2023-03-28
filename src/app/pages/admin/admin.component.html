@@ -7,7 +7,14 @@
     </div>
     <div class="content">
         <div class="header">
-            
+            <div class="dropdown">
+                <h3 class="drop"><i class="bi bi-person-circle"></i></h3>
+                <div class="dropdown-content">
+                    <span (click)="goHome()">My account</span>
+                    <span (click)="goHome()">Home page</span>
+                    <span (click)="logout()">Log out</span>
+                </div>
+            </div>
         </div>
         <div class="p-5">
             <router-outlet></router-outlet>

@@ -1,25 +1,22 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
+import { ORDER_API } from "../constant/api";
+import { CommonService } from "./common.service";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class OrderService {
+  constructor(private http: HttpClient, private commonService: CommonService) {}
 
-  private baseUrl = 'http://localhost:8080/orders';
-
-  private headerApplicationJson = new HttpHeaders({
-    'Content-Type': 'application/json',
-  });
-  
-  constructor(private http:HttpClient) { }
+  httpOptions = this.commonService.getHttpOptions();
 
   doGetAllByCustomerId(id: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/${id}`, {headers: this.headerApplicationJson});
+    return this.http.get(`${ORDER_API}/${id}`, this.httpOptions);
   }
 
   doCreateOrder(order: Object): Observable<any> {
-    return this.http.post(`${this.baseUrl}`, order, {headers: this.headerApplicationJson})
+    return this.http.post(`${ORDER_API}`, order, this.httpOptions);
   }
 }

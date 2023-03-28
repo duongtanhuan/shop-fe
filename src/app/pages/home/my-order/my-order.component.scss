@@ -1,57 +1,45 @@
 .content-order {
-    display: flex;
-    margin-left: 150px;
-    margin-right: 150px;
-    padding-top: 10px;
+  display: flex;
+  margin-left: 150px;
+  margin-right: 150px;
+  padding-top: 10px;
 
-    .directory {
-        width: 24%;
-        height: 100vh;
-        background-color:  #FFFFFF;
+  .directory {
+    width: 24%;
+    height: 100vh;
+    background-color: #ffffff;
+  }
+
+  .show-orders {
+    width: 76%;
+    background-color: #f5f5fb;
+    margin-left: 10px;
+
+    .nav-bar-orders {
+      height: 8vh;
+      margin-top: 20px;
+      padding-top: 17px;
+      padding-left: 50px;
+      background-color: #ffffff;
     }
 
-    .show-orders {
-        width: 76%;
-        background-color: #F5F5FB;
-        margin-left: 10px;
-
-        .nav-bar-orders {
-             height: 8vh;
-             margin-top: 20px;
-             background-color:  #FFFFFF;
-
-             .item-nav {
-                margin-top: 10px;
-                margin-left: 50px;
-             }
-        }
-
-        .card-item {
-            height: auto;
-            margin-top: 10px;
-            background-color: #FFFFFF;
-            border-radius: 4px;
-            padding: 20px;
-            .body {
-                height: auto;
-                height: 40%;
-                display: flex;
-                justify-content: space-between;
-            }
-            .footer {
-                display: flex;
-                justify-content: flex-end;
-                height: 15%;
-            }
-            // padding-left: 10px;
-            // padding-right: 10px;
-            // .card-header {
-            //     height: 20%;
-            //     background-color: #FFFFFF;
-            // }
-            // .card-body{
-            //     height: 43%;
-            // }
-        }
+    .card-item {
+      height: auto;
+      margin-top: 10px;
+      background-color: #ffffff;
+      border-radius: 4px;
+      padding: 20px;
+      .body {
+        height: auto;
+        height: 40%;
+        display: flex;
+        justify-content: space-between;
+      }
+      .footer {
+        display: flex;
+        justify-content: flex-end;
+        height: 15%;
+      }
     }
+  }
 }

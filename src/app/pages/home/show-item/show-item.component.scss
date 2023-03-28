@@ -1,7 +1,7 @@
 .content-items {
     display: flex;
    padding-left: 50px;
-   height: 88vh;
+   height: 100%;
    overflow: hidden;
     .directory {
         width: 20%;
@@ -9,8 +9,8 @@
     }
     .show-items {
         width: 68%;
-        overflow: hidden;
-        background-color: #f8f1e7;
+        height: 100%;
+        background-color: #88c7cf;
         margin-left: 15px;
         margin-top: 50px;
         padding-left: 10px;

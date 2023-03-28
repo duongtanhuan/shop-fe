@@ -60,20 +60,26 @@
             <div [hidden]="isSaved">
               <input type="hidden" class="form-control" formControlName="itemId" [(ngModel)]="item.id">
               <div class="form-group">
-                <label for="name">Item Name</label>
-                <input type="text" name="name" formControlName="itemName" class="form-control" [(ngModel)]="item.name">
+                <label for="itemName">Item Name</label>
+                <input type="text" name="itemName" formControlName="itemName" class="form-control"
+                  [(ngModel)]="item.name" [ngClass]="{'is-invalid': submitted && f.itemName.errors }" />
+                <div class="invalid-feedback" *ngIf="submitted && f.itemName.errors">
+                  <span *ngIf="f.itemName.errors.required">Item name is required</span>
+                </div>
               </div>
               <div class="form-group">
                 <label for="price">Item Price</label>
                 <input type="number" name="price" formControlName="itemPrice" class="form-control"
-                  [(ngModel)]="item.price">
+                  [(ngModel)]="item.price" [ngClass]="{'is-invalid': submitted && f.itemPrice.errors }" />
+                <div class="invalid-feedback" *ngIf="submitted && f.itemPrice.errors">
+                  <span *ngIf="f.itemPrice.errors.required"> Item price is required</span>
+                </div>
               </div>
             </div>
             <div [hidden]="!isSaved">
-              <h4>Item Saved!</h4>
+              <h4>Item Saved</h4>
             </div>
           </div>
-
           <div class="modal-footer">
             <button type="submit" class="btn btn-success" [hidden]="isSaved">Save</button>
             <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="changeisSaved()">Close</button>

@@ -5,43 +5,55 @@
       <p class="text-info">Please enter information to register for your account.</p>
     </div>
     <div class="input">
-      <form [formGroup]="loginForm" (ngSubmit)="login()">
+      <form [formGroup]="registerForm" (ngSubmit)="register()">
+        <div class="alert alert-danger mb-3 mt-3" *ngIf="message">
+          <span>{{message}}</span>
+        </div>
         <div class="row">
-          <div class="col-6">
+          <div class="form-group col-6">
             <label class="text-muted" for="username">Username</label>
-            <input type="text" name="username" class="form-control form-control-lm" placeholder="Username"
-              formControlName="username" required />
-            <div class="mt-2" *ngIf="loginForm.controls['username'].touched && loginForm.controls['username'].invalid">
-              <span class="text-danger" *ngIf="loginForm.controls['username'].errors.required"> Username is
-                required*</span>
+            <input type="text" name="username" class="form-control form-control-lm" formControlName="username"
+              [ngClass]="{'is-invalid': submitted && f.username.errors}" />
+            <div class="mt-2 invalid-feedback" *ngIf="submitted && f.username.errors">
+              <span *ngIf="f.username.errors.required">Username isrequired.</span>
+              <span *ngIf="f.username.errors.minlength">Username must be at least 3 characters.</span>
+              <span *ngIf="f.username.errors.maxlength">Username must be less than 20 characters.</span>
             </div>
           </div>
-          <div class="col-6">
+          <div class="form-group col-6">
             <label class="text-muted" for="username">Password</label>
-            <input type="text" name="password" class="form-control form-control-lm" placeholder="Password"
-              formControlName="password" required />
-            <div class="mt-2" *ngIf="loginForm.controls['password'].touched && loginForm.controls['password'].invalid">
-              <span class="text-danger" *ngIf="loginForm.controls['password'].errors.required"> Password is
-                required*</span>
+            <input type="password" name="password" class="form-control form-control-lm" formControlName="password"
+              [ngClass]="{'is-invalid': submitted && f.password.errors}" />
+
+            <div class="mt-2 invalid-feedback" *ngIf="submitted && f.password.errors">
+              <span *ngIf="f.username.errors.required">Password isrequired.</span>
+              <span *ngIf="f.username.errors.minlength">Password must be at least 5 characters.</span>
             </div>
           </div>
         </div>
         <div class="row mt-5">
-          <div class="col-6">
+          <div class="form-group col-6">
             <label class="text-muted" for="email">Email</label>
             <input type="email" name="email" class="form-control form-control-lm" placeholder="user@gmail.com"
-              formControlName="email" required />
-            <div class="mt-2" *ngIf="loginForm.controls['email'].touched && loginForm.controls['email'].invalid">
-              <span class="text-danger" *ngIf="loginForm.controls['email'].errors.required"> Password is
-                required*</span>
-              <span class="text-danger" *ngIf="loginForm.controls['email'].errors.email"> Emial format is
-                invalid*</span>
+              formControlName="email" [ngClass]="{'is-invalid': submitted && f.email.errors}" />
+            <div class="mt-2 invalid-feedback" *ngIf="submitted && f.email.errors">
+              <span *ngIf="f.email.errors.required">Email isrequired.</span>
+              <span *ngIf="f.email.errors.email">Email must be a valid email address.</span>
             </div>
           </div>
-          <div class="col-6">
+          <div class="form-group form-check col-6">
+            <label class="text-muted" for="confirmPassword">Confirm Password</label>
+            <input type="password" name="confirmPassword" class="form-control form-control-lm"
+              formControlName="confirmPassword" [ngClass]="{'is-invalid': submitted && f.confirmPassword.errors}" />
+            <div class="mt-2 invalid-feedback" *ngIf="submitted && f.confirmPassword.errors">
+              <span *ngIf="f.confirmPassword.errors.required">Confirm password is required.</span>
+              <span *ngIf="f.confirmPassword.errors.mustMatch">Passwords must match.</span>
+            </div>
+          </div>
+          <div class="col">
             <label class="text-muted" for="email">Role</label>
             <div>
-              <input class="checkbox-lg" type="checkbox"  (click)="setRoles('user',$event)"> User
+              <input class="checkbox-lg" type="checkbox"  (click)="setRoles('user',$event)" checked> User
             </div>
             <div>
               <input class="checkbox-lg" type="checkbox" (click)="setRoles('admin',$event)"> Admin
@@ -53,10 +65,9 @@
         <div class="mt-4 mb-4">
           <button type="submit" class="btn btn-info w-100">REGISTER</button>
         </div>
-        <a routerLink="" routerLinkActive="active" class="register text-info">Forgot password?</a>
         <div class="d-flex mt-3">
-          <p>Don't have an account?</p>
-          <a routerLink="" routerLinkActive="active" class="register text-info">Register here</a>
+          <p>Are you wanna login now?</p>
+          <a routerLink="/login" routerLinkActive="active" class="register text-info">Login</a>
         </div>
         <div class="text-center">
           <a routerLink="" routerLinkActive="active" class="register text-info">Home page</a>
