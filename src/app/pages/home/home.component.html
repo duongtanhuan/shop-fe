@@ -4,7 +4,7 @@
         <router-outlet></router-outlet>
     </div>
 </div>
-<div class="main" *ngIf="!isUserAdminLogged || !isUserLogged">
+<div class="main" *ngIf="!(isUserAdminLogged || isUserLogged)">
     You are not logged in ? Please you logged in at here <a routerLink="/login" routerLinkActive="active"
         class="register text-info">Log in</a>
 </div>
