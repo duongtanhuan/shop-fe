@@ -15,7 +15,7 @@
             <div class="dropdown-content">
                 <span href="#" [hidden]="isAdmin">My account</span>
                 <span  (click)="goMyOrder()">My order</span>
-                <span  (click)="goAdmin()" *ngIf="isAdmin">Admin</span>
+                <span  (click)="goAdmin()" *ngIf="isUserAdmin">Admin</span>
                 <span  (click)="logout()">Log out</span>
             </div>
         </div>

@@ -13,6 +13,7 @@ export class HeaderComponent implements OnInit {
   cartDetails: CartDetail[] = [new CartDetail()];
   customerId: number;
   isAdmin: boolean;
+  isUserAdmin: boolean;
   sizeCart: number;
 
   constructor(
@@ -29,6 +30,7 @@ export class HeaderComponent implements OnInit {
       this.commonService.setSizeCart(res.cartDetails.length)
     });
     this.isAdmin = this.commonService.getIsAdmin();
+    this.isUserAdmin = this.commonService.getIsUserAdmin();
     this.sizeCart = this.commonService.getSizeCart();
   }
 

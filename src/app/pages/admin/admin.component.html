@@ -1,4 +1,4 @@
-<div class="main" *ngIf="isLogged">
+<div class="main" *ngIf="isAdminLogged || isUserAdminLogged">
     <div class="side-bar">
         <div class="title ">
             <h4 class="text-white fw-bold p-4">ADMIN</h4>
@@ -21,7 +21,7 @@
         </div>
     </div>
 </div>
-<div class="main" *ngIf="!isLogged">
-    You are not logged in ? Please you logged in at here <a routerLink="/login" routerLinkActive="active"
+<div class="main" *ngIf="!isAdminLogged || !isUserAdminLogged">
+    you do not have access to access this page or you are not logged in ? Please you logged in at here<a routerLink="/login" routerLinkActive="active"
         class="register text-info"> Log in</a>
 </div>

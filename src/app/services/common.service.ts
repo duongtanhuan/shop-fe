@@ -29,12 +29,20 @@ export class CommonService {
     };
   }
 
-  setIsAdmin(isAdmin: string) {
-    localStorage.setItem("isAdmin", isAdmin);
+  setIsRole(isAdmin: string) {
+    localStorage.setItem("isRole", isAdmin);
   }
 
   getIsAdmin() {
-    return localStorage.getItem("isAdmin") === "admin";
+    return localStorage.getItem("isRole") === "admin";
+  }
+
+  getIsUserAdmin() {
+    return localStorage.getItem("isRole") === "user_admin";
+  }
+
+  getIsUser() {
+    return localStorage.getItem("isRole") === "user";
   }
 
   setSizeCart(sizeCart: string) {

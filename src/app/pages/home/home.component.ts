@@ -7,14 +7,12 @@ import { CommonService } from "src/app/services/common.service";
   styleUrls: ["./home.component.scss"],
 })
 export class HomeComponent implements OnInit {
-  isLogged: boolean;
+  isUserAdminLogged: boolean;
+  isUserLogged: boolean;
   constructor(private commonService: CommonService) {}
 
   ngOnInit() {
-    if (this.commonService.getCustomerId()) {
-      this.isLogged = true;
-    } else {
-      this.isLogged = false;
-    }
+    this.isUserAdminLogged = this.commonService.getIsUserAdmin();
+    this.isUserLogged = this.commonService.getIsUser();
   }
 }

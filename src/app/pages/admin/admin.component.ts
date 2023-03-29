@@ -8,7 +8,8 @@ import { CommonService } from "src/app/services/common.service";
   styleUrls: ["./admin.component.scss"],
 })
 export class AdminComponent implements OnInit {
-  isLogged: boolean;
+  isAdminLogged: boolean;
+  isUserAdminLogged: boolean;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -16,11 +17,8 @@ export class AdminComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    if (this.commonService.getCustomerId()) {
-      this.isLogged = true;
-    } else {
-      this.isLogged = false;
-    }
+    this.isAdminLogged = this.commonService.getIsAdmin();
+    this.isUserAdminLogged = this.commonService.getIsUserAdmin();
   }
 
   logout() {

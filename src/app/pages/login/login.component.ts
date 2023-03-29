@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   roles: string[];
   submitted = false;
   loginForm: FormGroup;
-  isAdmin: string;
+  isRole: string;
 
   constructor(
     private authService: AuthService,
@@ -65,15 +65,16 @@ export class LoginComponent implements OnInit {
           return s == "admin";
         });
         if (this.roles.includes("admin") && this.roles.includes("user")) {
+          this.isRole = "user_admin";
           this.goAdmin();
         } else if (this.roles.includes("admin")) {
-          this.isAdmin = "admin";
+          this.isRole = "admin";
           this.goAdmin();
         } else {
-          this.isAdmin = "";
+          this.isRole = "user";
           this.goHome();
         }
-        this.commonService.setIsAdmin(this.isAdmin);
+        this.commonService.setIsRole(this.isRole);
       },
       error: (err) => {
         this.invalidMessage = err.error.message;
