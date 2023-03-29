@@ -11,22 +11,26 @@
                             <nav>
                                 <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
                                     <a class="nav-item nav-link active" id="nav-all-tab" data-toggle="tab"
-                                        href="#nav-all" role="tab" aria-controls="nav-all" aria-selected="true">All</a>
-                                    <a class="nav-item nav-link" id="nav-pending-tab" data-toggle="tab"
-                                        href="#nav-pending" role="tab" aria-controls="nav-pending"
+                                        href="#nav-all" role="tab" aria-controls="nav-all" aria-selected="true"
+                                        [hidden]="isAdmin">All</a>
+                                    <a *ngIf="isAdmin" class="nav-item nav-link active" id="nav-pending-tab"
+                                        data-toggle="tab" href="#nav-pending" role="tab" aria-controls="nav-pending"
                                         aria-selected="false">Pending</a>
+                                    <a class="nav-item nav-link" id="nav-pending-tab" data-toggle="tab"
+                                        href="#nav-pending" role="tab" aria-controls="nav-pending" aria-selected="false"
+                                        [hidden]="isAdmin">Pending</a>
                                     <a class="nav-item nav-link" id="nav-processing-tab" data-toggle="tab"
                                         href="#nav-processing" role="tab" aria-controls="nav-processing"
-                                        aria-selected="false">Processing</a>
+                                        aria-selected="false" [hidden]="isAdmin">Processing</a>
                                     <a class="nav-item nav-link" id="nav-tranfering-tab" data-toggle="tab"
                                         href="#nav-tranfering" role="tab" aria-controls="nav-tranfering"
-                                        aria-selected="false">Tranfering</a>
+                                        aria-selected="false" [hidden]="isAdmin">Tranfering</a>
                                     <a class="nav-item nav-link" id="nav-delivered-tab" data-toggle="tab"
                                         href="#nav-delivered" role="tab" aria-controls="nav-delivered"
-                                        aria-selected="false">Delivered</a>
+                                        aria-selected="false" [hidden]="isAdmin">Delivered</a>
                                     <a class="nav-item nav-link" id="nav-cancelled-tab" data-toggle="tab"
                                         href="#nav-cancelled" role="tab" aria-controls="nav-cancelled"
-                                        aria-selected="false">Cancelled</a>
+                                        aria-selected="false" [hidden]="isAdmin">Cancelled</a>
                                 </div>
                             </nav>
                         </div>
@@ -58,14 +62,13 @@
                             <ng-template #elseValue>0 vnd</ng-template>
                         </div>
                     </div>
-                    <ng-template #elseOrderSize>There is no any cart detail to display.</ng-template>
                 </div>
-                <div class="tab-pane" id="nav-pending" role="tabpanel" aria-labelledby="nav-pending-tab">
-                    <div *ngIf="pendingOrders.length > 0; else elseOrderSize">
+                <div class="tab-pane active" id="nav-pending" role="tabpanel" aria-labelledby="nav-pending-tab">
+                    <div *ngIf="pendingOrders.length > 0; else elseOrder">
                         <div class="card-item" *ngFor="let order of pendingOrders">
                             <div><i class="bi bi-truck"></i> Successful delivery</div>
                             <hr>
-                            <div *ngIf="order.orderDetails.length > 0; else elseOrderSize">
+                            <div *ngIf="order.orderDetails.length > 0">
                                 <div class="body" *ngFor="let orderDetail of order.orderDetails">
                                     <div>
                                         <p>{{orderDetail.item.name}}</p>
@@ -83,7 +86,6 @@
                             <ng-template #elseValue>0 vnd</ng-template>
                         </div>
                     </div>
-                    <ng-template #elseOrderSize>There is no any cart detail to display.</ng-template>
                 </div>
                 <div class="tab-pane" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
                 </div>

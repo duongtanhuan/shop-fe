@@ -10,9 +10,10 @@ import { OrderService } from "../../../services/order.service";
 })
 export class MyOrderComponent implements OnInit {
   order: Order = new Order();
-  orders: Order[] = [new Order()];
-  pendingOrders: Order[] = [new Order()];
+  orders: Order[] = [];
+  pendingOrders: Order[] = [];
   customerId: number;
+  isAdmin: boolean
 
   constructor(
     private service: OrderService,
@@ -22,7 +23,8 @@ export class MyOrderComponent implements OnInit {
   ngOnInit() {
     this.customerId = this.commonService.getCustomerId();
     this.getOrdersByCustomerId(this.customerId);
-    this.getPedingOrdersByCustomerId(this.customerId);
+    this.doGetPendingOrdersByStatus();
+    this.isAdmin = this.commonService.getIsAdmin();
   }
 
   getOrdersByCustomerId(id: number) {
@@ -31,8 +33,8 @@ export class MyOrderComponent implements OnInit {
     });
   }
 
-  getPedingOrdersByCustomerId(id: number) {
-    this.service.doGetPendingOrdersByCustomerIdAndStatus(id).subscribe((res) => {
+  doGetPendingOrdersByStatus() {
+    this.service.doGetPendingOrdersByStatus().subscribe((res) => {
       this.pendingOrders = res;
     });
   }
