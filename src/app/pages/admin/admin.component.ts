@@ -1,23 +1,33 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
+import { CommonService } from "src/app/services/common.service";
 
 @Component({
-  selector: 'app-admin',
-  templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.scss']
+  selector: "app-admin",
+  templateUrl: "./admin.component.html",
+  styleUrls: ["./admin.component.scss"],
 })
 export class AdminComponent implements OnInit {
-
-  constructor(private route: ActivatedRoute, private router: Router) { }
+  isLogged: boolean;
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private commonService: CommonService
+  ) {}
 
   ngOnInit() {
+    if (this.commonService.getCustomerId()) {
+      this.isLogged = true;
+    } else {
+      this.isLogged = false;
+    }
   }
 
   logout() {
     localStorage.clear();
     this.goLogin();
   }
-  
+
   goLogin() {
     this.router.navigate(["/login"], { relativeTo: this.route });
   }

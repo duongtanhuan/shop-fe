@@ -1,6 +1,10 @@
-<div class="main">
+<div class="main" *ngIf="isLogged">
     <app-header></app-header>
     <div class="content">
         <router-outlet></router-outlet>
     </div>
+</div>
+<div class="main" *ngIf="!isLogged">
+    You are not logged in ? Please you logged in at here <a routerLink="/login" routerLinkActive="active"
+        class="register text-info">Log in</a>
 </div>
