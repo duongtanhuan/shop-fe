@@ -12,6 +12,7 @@ export class MyOrderComponent implements OnInit {
   order: Order = new Order();
   orders: Order[] = [];
   pendingOrders: Order[] = [];
+  pendingOrdersOfCustomer: Order[] = [];
   customerId: number;
   isAdmin: boolean
 
@@ -23,7 +24,8 @@ export class MyOrderComponent implements OnInit {
   ngOnInit() {
     this.customerId = this.commonService.getCustomerId();
     this.getOrdersByCustomerId(this.customerId);
-    this.doGetPendingOrdersByStatus();
+    this.getPendingOrdersByStatus();
+    this.getPendingOrdersByCustomerIdAndStatus(2);
     this.isAdmin = this.commonService.getIsAdmin();
   }
 
@@ -33,9 +35,15 @@ export class MyOrderComponent implements OnInit {
     });
   }
 
-  doGetPendingOrdersByStatus() {
+  getPendingOrdersByStatus() {
     this.service.doGetPendingOrdersByStatus().subscribe((res) => {
       this.pendingOrders = res;
+    });
+  }
+
+  getPendingOrdersByCustomerIdAndStatus(id: number) {
+    this.service.doGetPendingOrdersByCustomerIdAndStatus(id).subscribe((res) => {
+      this.pendingOrdersOfCustomer = res;
     });
   }
 }

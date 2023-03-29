@@ -17,7 +17,10 @@ export class OrderService {
   }
 
   doGetPendingOrdersByStatus(): Observable<any> {
-    return this.http.get(`${ORDER_API}`+'/pendingOrders', this.httpOptions);
+    return this.http.get(`${ORDER_API}` + "/pendingOrders", this.httpOptions);
+  }
+  doGetPendingOrdersByCustomerIdAndStatus(id: number): Observable<any> {
+    return this.http.get(`${ORDER_API}` + "/pendingOrders" +`/${id}`, this.httpOptions);
   }
 
   doCreateOrder(order: Object): Observable<any> {
