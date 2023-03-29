@@ -23,14 +23,14 @@ export class CartComponent implements OnInit {
   priceTotal: number = 0;
   itemQuantity: number;
   customerId: number;
-
+  
   constructor(
     private cartService: CartService,
     private cartDetailService: CartDetailService,
     private orderService: OrderService,
     private commonService: CommonService
-  ) {}
-
+    ) {}
+    
   ngOnInit() {
     this.customerId = this.commonService.getCustomerId();
     this.getCartByCustomerId(this.customerId);

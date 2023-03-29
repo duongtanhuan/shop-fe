@@ -40,6 +40,11 @@ export class HeaderComponent implements OnInit {
   goLogin() {
     this.router.navigate(["/login"], { relativeTo: this.route });
   }
+  
+  goAdmin() {
+    this.router.navigate(["/", "admin", "item"], { relativeTo: this.route });
+  }
+
   goMyOrder() {
     this.router.navigate(["my-order"], { relativeTo: this.route });
   }
