@@ -11,6 +11,7 @@ import { OrderService } from "../../../services/order.service";
 export class MyOrderComponent implements OnInit {
   order: Order = new Order();
   orders: Order[] = [new Order()];
+  pendingOrders: Order[] = [new Order()];
   customerId: number;
 
   constructor(
@@ -21,11 +22,18 @@ export class MyOrderComponent implements OnInit {
   ngOnInit() {
     this.customerId = this.commonService.getCustomerId();
     this.getOrdersByCustomerId(this.customerId);
+    this.getPedingOrdersByCustomerId(this.customerId);
   }
 
   getOrdersByCustomerId(id: number) {
     this.service.doGetAllByCustomerId(id).subscribe((res) => {
       this.orders = res;
+    });
+  }
+
+  getPedingOrdersByCustomerId(id: number) {
+    this.service.doGetPendingOrdersByCustomerIdAndStatus(id).subscribe((res) => {
+      this.pendingOrders = res;
     });
   }
 }
