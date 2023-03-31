@@ -1,32 +1,30 @@
-.content-items {
-    display: flex;
-   padding-left: 50px;
-   height: 100%;
-   overflow: hidden;
-    .directory {
-        width: 20%;
-        height: 60%;
-    }
-    .show-items {
-        width: 68%;
-        height: 100%;
-        background-color: #88c7cf;
-        margin-left: 15px;
-        margin-top: 50px;
-        padding-left: 10px;
-        padding-right: 10px;
+.content {
+  display: flex;
+  height: auto;
+  width: 100%;
+  padding-top: 20px;
+  padding-left: 80px;
+  padding-right: 80px;
+  overflow: hidden;
+  background-color: #f5f5fb;
 
-        .item {
-            padding-top: 10px;
-            padding-left: 10px;
-            background-color: #FFFFFF;
-            height: 150px;
-            border-radius: 2%;
+  .sidebar {
+    height: 80vh;
+    width: 20%;
+    background-color: #ffffff;
+  }
 
-            .btn {
-                margin-top: 15px;
-                margin-left: 70px;
-            }
-        }
+  .show-items {
+    height: 100%;
+    width: 80%;
+    margin-left: 20px;
+    padding-bottom: 40px;
+    background-color: #f5f5fb;
+    overflow-x: hidden;
+
+    .list {
+      height: auto;
+      width: 100%;
     }
+  }
 }

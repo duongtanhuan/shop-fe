@@ -59,15 +59,14 @@
   .content {
     height: 90%;
     width: 100%;
+    display: flex;
     .sidebar {
-      position: fixed;
       height: 100%;
       width: 20%;
       background-color: #3c4b64;
     }
     .outlet {
-      margin-left: 307px;
-      height: 100vh;
+      height: 100%;
       background-color: #f5f5fb;
       width: 80%;
       padding-top: 80px;

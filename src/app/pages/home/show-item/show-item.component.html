@@ -1,14 +1,16 @@
-
-<div class="content-items">
-    <div class="directory">
+<div class="content">
+    <div class="sidebar">
     </div>
     <div class="show-items">
-        <div class="row mt-4">
-            <div class="col-3 mt-2"  *ngFor="let item of items; index as i;">
-                <div class="item">
-                    <div>Name: {{item.name}}</div>
-                    <div class="mt-3">Price: {{item.price}}</div>
-                    <button type="button" class="btn btn-danger" (click)="addItemToCart(item.id)" [disabled]="isAdmin">Add to Carts</button>
+        <div class="list">
+            <div class="row mt-4">
+                <div class="col-3 mt-2" *ngFor="let item of items; index as i;">
+                    <div class="item">
+                        <div>Name: {{item.name}}</div>
+                        <div class="mt-3">Price: {{item.price}}</div>
+                        <button type="button" class="btn btn-danger" (click)="addItemToCart(item.id)"
+                            [disabled]="isAdmin">Add to Carts</button>
+                    </div>
                 </div>
             </div>
         </div>
