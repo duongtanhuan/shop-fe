@@ -13,10 +13,11 @@
                 <h6><i class="bi bi-person-square"></i> Account</h6>
             </button>
             <div class="dropdown-content">
-                <span href="#" [hidden]="isAdmin">My account</span>
-                <span  (click)="goMyOrder()">My order</span>
-                <span  (click)="goAdmin()" *ngIf="isUserAdmin">Admin</span>
-                <span  (click)="logout()">Log out</span>
+                <span href="#" [hidden]="isAdminLogged">My account</span>
+                <span (click)="goMyOrder()" [hidden]="isAdminLogged">My order</span>
+                <span (click)="goMyOrder()" *ngIf="isAdminLogged">Pending order</span>
+                <span (click)="goAdmin()" *ngIf="isUserAdminLogged || isAdminLogged">Admin</span>
+                <span (click)="logout()">Log out</span>
             </div>
         </div>
         <div class="item-cart">

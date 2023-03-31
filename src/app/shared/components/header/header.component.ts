@@ -12,8 +12,8 @@ import { CommonService } from "../../../services/common.service";
 export class HeaderComponent implements OnInit {
   cartDetails: CartDetail[] = [new CartDetail()];
   customerId: number;
-  isAdmin: boolean;
-  isUserAdmin: boolean;
+  isAdminLogged: boolean;
+  isUserAdminLogged: boolean;
   sizeCart: number;
 
   constructor(
@@ -27,10 +27,10 @@ export class HeaderComponent implements OnInit {
     this.customerId = this.commonService.getCustomerId();
     this.cartService.doGetCartByCustomerId(this.customerId).subscribe((res) => {
       this.cartDetails = res.cartDetails;
-      this.commonService.setSizeCart(res.cartDetails.length)
+      this.commonService.setSizeCart(res.cartDetails.length);
     });
-    this.isAdmin = this.commonService.getIsAdmin();
-    this.isUserAdmin = this.commonService.getIsUserAdmin();
+    this.isAdminLogged = this.commonService.getIsAdmin();
+    this.isUserAdminLogged = this.commonService.getIsUserAdmin();
     this.sizeCart = this.commonService.getSizeCart();
   }
 
@@ -42,7 +42,7 @@ export class HeaderComponent implements OnInit {
   goLogin() {
     this.router.navigate(["/login"], { relativeTo: this.route });
   }
-  
+
   goAdmin() {
     this.router.navigate(["/", "admin", "item"], { relativeTo: this.route });
   }
