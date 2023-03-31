@@ -1,12 +1,9 @@
-<div class="main" *ngIf="isAdminLogged || isUserAdminLogged">
-    <div class="side-bar">
-        <div class="title ">
+<div class="main" *ngIf="isAdminLogged || isUserAdminLogged; else elseValue">
+    <div class="header">
+        <div class="title">
             <h4 class="text-white fw-bold p-4">ADMIN</h4>
         </div>
-
-    </div>
-    <div class="content">
-        <div class="header">
+        <div class="account">
             <div class="dropdown">
                 <h3 class="drop"><i class="bi bi-person-circle"></i></h3>
                 <div class="dropdown-content">
@@ -16,12 +13,18 @@
                 </div>
             </div>
         </div>
-        <div class="p-5">
-            <router-outlet></router-outlet>
+    </div>
+    <div class="content">
+        <div class="sidebar">
+        </div>
+        <div class="outlet">
+            <div class="list">
+                <router-outlet></router-outlet>
+            </div>
         </div>
     </div>
 </div>
-<div class="main" *ngIf="!isAdminLogged || !isUserAdminLogged">
-    you do not have access to access this page or you are not logged in ? Please you logged in at here<a routerLink="/login" routerLinkActive="active"
-        class="register text-info"> Log in</a>
-</div>
+<ng-template #elseValue>
+    you do not have access to access this page or you are not logged in ? Please you logged in at here<a
+        routerLink="/login" routerLinkActive="active" class="register text-info"> Log in</a>
+</ng-template>
