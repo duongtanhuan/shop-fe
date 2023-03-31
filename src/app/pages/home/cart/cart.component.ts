@@ -23,14 +23,14 @@ export class CartComponent implements OnInit {
   priceTotal: number = 0;
   itemQuantity: number;
   customerId: number;
-  
+
   constructor(
     private cartService: CartService,
     private cartDetailService: CartDetailService,
     private orderService: OrderService,
     private commonService: CommonService
-    ) {}
-    
+  ) {}
+
   ngOnInit() {
     this.customerId = this.commonService.getCustomerId();
     this.getCartByCustomerId(this.customerId);
@@ -43,20 +43,13 @@ export class CartComponent implements OnInit {
 
     if (value.target.checked) {
       this.orderDetails.push(cartDetail);
+      this.increaseTotalPrice(cartDetail);
     } else {
       this.orderDetails = this.orderDetails.filter(
         (c) => c.id !== cartDetail.id
       );
+      this.priceTotal -= cartDetail.item.price * cartDetail.quantity;
     }
-    this.priceTotal = 0;
-    this.orderDetails.forEach((o) => {
-      if (o) {
-        this.priceTotal += o.item.price * o.quantity;
-        this;
-      } else {
-        this.priceTotal = 0;
-      }
-    });
 
     Object.assign(this.orderRequest, {
       customerId: this.customerId,
@@ -84,7 +77,28 @@ export class CartComponent implements OnInit {
     });
   }
 
+  increaseTotalPrice(cartDetail: CartDetail) {
+    var orderDetail = this.orderDetails.filter((o) => {
+      return o.id === cartDetail.id;
+    });
+
+    if (orderDetail.length === 1) {
+      this.priceTotal += cartDetail.item.price * cartDetail.quantity;
+    }
+  }
+
+  decreaseTotalPrice(cartDetail: CartDetail) {
+    var orderDetail = this.orderDetails.filter((o) => {
+      return o.id === cartDetail.id;
+    });
+
+    if (orderDetail.length === 1) {
+      this.priceTotal -= cartDetail.item.price * cartDetail.quantity;
+    }
+  }
   increaseItemQuantity(cartDetail: CartDetail) {
+    this.decreaseTotalPrice(cartDetail);
+
     if (cartDetail.quantity) {
       cartDetail.quantity += 1;
     } else {
@@ -92,9 +106,11 @@ export class CartComponent implements OnInit {
     }
     this.itemQuantity = cartDetail.quantity;
     this.updateItemInCart(cartDetail);
+    this.increaseTotalPrice(cartDetail);
   }
 
   onChangeItemQuantity(cartDetail: CartDetail, newValue: any) {
+    this.decreaseTotalPrice(cartDetail);
     if (cartDetail.quantity) {
       cartDetail.quantity = newValue.target.value;
     } else {
@@ -102,9 +118,11 @@ export class CartComponent implements OnInit {
     }
     this.itemQuantity = cartDetail.quantity;
     this.updateItemInCart(cartDetail);
+    this.increaseTotalPrice(cartDetail);
   }
 
   decreaseItemQuantity(cartDetail: CartDetail) {
+    this.decreaseTotalPrice(cartDetail);
     if (cartDetail.quantity) {
       cartDetail.quantity -= 1;
     } else {
@@ -112,6 +130,7 @@ export class CartComponent implements OnInit {
     }
     this.itemQuantity = cartDetail.quantity;
     this.updateItemInCart(cartDetail);
+    this.increaseTotalPrice(cartDetail);
   }
 
   updateItemInCart(cartDetail: CartDetail) {
