@@ -1,16 +1,13 @@
-import { Component, OnInit } from "@angular/core";
-import {
-  FormBuilder,
-  FormGroup,
-  Validators
-} from "@angular/forms";
-import { Item } from "src/app/models/item";
-import { ItemService } from "../../../services/item.service";
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { TITLE_ADD, TITLE_UPDATE } from 'src/app/constant/utilities';
+import { Item } from 'src/app/models/item';
+import { ItemService } from '../../../services/item.service';
 
 @Component({
-  selector: "app-item-management",
-  templateUrl: "./item-management.component.html",
-  styleUrls: ["./item-management.component.scss"],
+  selector: 'app-item-management',
+  templateUrl: './item-management.component.html',
+  styleUrls: ['./item-management.component.scss'],
 })
 export class ItemManagementComponent implements OnInit {
   item: Item = new Item();
@@ -21,6 +18,7 @@ export class ItemManagementComponent implements OnInit {
   isSaved = false;
   deleteMessage = false;
   submitted = false;
+  supportLanguages = ['en', 'vn'];
 
   constructor(private itemService: ItemService, private fb: FormBuilder) {}
 
@@ -29,9 +27,9 @@ export class ItemManagementComponent implements OnInit {
     this.getItemAll();
 
     this.itemForm = this.fb.group({
-      itemId: ["", Validators.required],
-      itemName: ["", Validators.required],
-      itemPrice: ["", Validators.required],
+      itemId: ['', Validators.required],
+      itemName: ['', Validators.required],
+      itemPrice: ['', Validators.required],
     });
   }
 
@@ -44,15 +42,15 @@ export class ItemManagementComponent implements OnInit {
   }
 
   get ItemId() {
-    return this.itemForm.get("itemId");
+    return this.itemForm.get('itemId');
   }
 
   get ItemName() {
-    return this.itemForm.get("itemName");
+    return this.itemForm.get('itemName');
   }
 
   get ItemPrice() {
-    return this.itemForm.get("itemPrice");
+    return this.itemForm.get('itemPrice');
   }
 
   getItemAll() {
@@ -86,13 +84,12 @@ export class ItemManagementComponent implements OnInit {
     this.onReset();
   }
 
-
-  changeisSaved() {
+  changeIsSaved() {
     this.isSaved = false;
   }
 
   deleteItem(id: number) {
-    this.itemService.doDelete(id).subscribe((res) => {
+    this.itemService.doDelete(id).subscribe(() => {
       this.deleteMessage = true;
       this.getItemAll();
     });
@@ -101,12 +98,12 @@ export class ItemManagementComponent implements OnInit {
   addNew() {
     this.submitted = false;
     this.item = new Item();
-    this.modalTitle = "Add";
+    this.modalTitle = TITLE_ADD;
   }
 
   updateItem(id: number) {
     this.submitted = false;
-    this.modalTitle = "Update";
+    this.modalTitle = TITLE_UPDATE;
     this.itemService.doGetById(id).subscribe((res) => {
       this.item = res;
     });

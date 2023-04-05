@@ -1,11 +1,11 @@
-import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
-import { ITEM_API } from "../constant/api";
-import { CommonService } from "./common.service";
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { ITEM_API } from '../constant/api';
+import { CommonService } from './common.service';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class ItemService {
   constructor(private http: HttpClient, private commonService: CommonService) {}

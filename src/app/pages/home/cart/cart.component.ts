@@ -1,17 +1,17 @@
-import { Component, OnInit } from "@angular/core";
-import { Order } from "src/app/models/order";
-import { OrderDetail } from "src/app/models/order-detail";
-import { CartDetailService } from "src/app/services/cart-detail.service";
-import { CartService } from "src/app/services/cart.service";
-import { CommonService } from "src/app/services/common.service";
-import { OrderService } from "src/app/services/order.service";
-import { Cart } from "../../../models/cart";
-import { CartDetail } from "../../../models/cart-detail";
+import { Component, OnInit } from '@angular/core';
+import { Order } from 'src/app/models/order';
+import { OrderDetail } from 'src/app/models/order-detail';
+import { CartDetailService } from 'src/app/services/cart-detail.service';
+import { CartService } from 'src/app/services/cart.service';
+import { CommonService } from 'src/app/services/common.service';
+import { OrderService } from 'src/app/services/order.service';
+import { Cart } from '../../../models/cart';
+import { CartDetail } from '../../../models/cart-detail';
 
 @Component({
-  selector: "app-cart",
-  templateUrl: "./cart.component.html",
-  styleUrls: ["./cart.component.scss"],
+  selector: 'app-cart',
+  templateUrl: './cart.component.html',
+  styleUrls: ['./cart.component.scss'],
 })
 export class CartComponent implements OnInit {
   cartResponse: Cart = new Cart();
@@ -96,6 +96,7 @@ export class CartComponent implements OnInit {
       this.priceTotal -= cartDetail.item.price * cartDetail.quantity;
     }
   }
+
   increaseItemQuantity(cartDetail: CartDetail) {
     this.decreaseTotalPrice(cartDetail);
 
@@ -111,6 +112,7 @@ export class CartComponent implements OnInit {
 
   onChangeItemQuantity(cartDetail: CartDetail, newValue: any) {
     this.decreaseTotalPrice(cartDetail);
+
     if (cartDetail.quantity) {
       cartDetail.quantity = newValue.target.value;
     } else {
@@ -123,6 +125,7 @@ export class CartComponent implements OnInit {
 
   decreaseItemQuantity(cartDetail: CartDetail) {
     this.decreaseTotalPrice(cartDetail);
+    
     if (cartDetail.quantity) {
       cartDetail.quantity -= 1;
     } else {

@@ -2,7 +2,7 @@
     <div class="directory">
     </div>
     <div class="show-orders">
-        <h5 class="text-muted mt-5">My order</h5>
+        <h5 class="text-muted mt-5">{{'labels.order.my-order' | translate}}</h5>
         <div class="nav-bar-orders">
             <section id="tabs" class="project-tab">
                 <div class="container">
@@ -12,25 +12,25 @@
                                 <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
                                     <a class="nav-item nav-link active" id="nav-all-tab" data-toggle="tab"
                                         href="#nav-all" role="tab" aria-controls="nav-all" aria-selected="true"
-                                        [hidden]="isAdmin">All</a>
+                                        [hidden]="isAdmin">{{'labels.order.all' | translate}}</a>
                                     <a *ngIf="isAdmin" class="nav-item nav-link active" id="nav-pending-tab"
                                         data-toggle="tab" href="#nav-pending" role="tab" aria-controls="nav-pending"
-                                        aria-selected="false">Pending</a>
+                                        aria-selected="false">{{'labels.order.pending' | translate}}</a>
                                     <a class="nav-item nav-link" id="nav-pending-tab" data-toggle="tab"
                                         href="#nav-pending" role="tab" aria-controls="nav-pending" aria-selected="false"
-                                        [hidden]="isAdmin">Pending</a>
+                                        [hidden]="isAdmin">{{'labels.order.pending' | translate}}</a>
                                     <a class="nav-item nav-link" id="nav-processing-tab" data-toggle="tab"
                                         href="#nav-processing" role="tab" aria-controls="nav-processing"
-                                        aria-selected="false" [hidden]="isAdmin">Processing</a>
+                                        aria-selected="false" [hidden]="isAdmin">{{'labels.order.processing' | translate}}</a>
                                     <a class="nav-item nav-link" id="nav-tranfering-tab" data-toggle="tab"
                                         href="#nav-tranfering" role="tab" aria-controls="nav-tranfering"
-                                        aria-selected="false" [hidden]="isAdmin">Tranfering</a>
+                                        aria-selected="false" [hidden]="isAdmin">{{'labels.order.transfering' | translate}}</a>
                                     <a class="nav-item nav-link" id="nav-delivered-tab" data-toggle="tab"
                                         href="#nav-delivered" role="tab" aria-controls="nav-delivered"
-                                        aria-selected="false" [hidden]="isAdmin">Delivered</a>
+                                        aria-selected="false" [hidden]="isAdmin">{{'labels.order.delivered' | translate}}</a>
                                     <a class="nav-item nav-link" id="nav-cancelled-tab" data-toggle="tab"
                                         href="#nav-cancelled" role="tab" aria-controls="nav-cancelled"
-                                        aria-selected="false" [hidden]="isAdmin">Cancelled</a>
+                                        aria-selected="false" [hidden]="isAdmin">{{'labels.order.cancelled' | translate}}</a>
                                 </div>
                             </nav>
                         </div>
@@ -41,13 +41,13 @@
                 <div class="tab-pane active" id="nav-all" name="nav-all" role="tabpanel" aria-labelledby="nav-all-tab">
                     <div *ngIf="orders.length > 0">
                         <div class="card-item" *ngFor="let order of orders">
-                            <div><i class="bi bi-truck"></i> Successful delivery</div>
+                            <div><i class="bi bi-truck"></i> {{'labels.order.successful-delivery' | translate}}</div>
                             <hr>
                             <div *ngIf="order.orderDetails.length > 0">
                                 <div class="body" *ngFor="let orderDetail of order.orderDetails">
                                     <div>
                                         <p>{{orderDetail.item.name}}</p>
-                                        <p>Quanitty: {{orderDetail.quantity}}</p>
+                                        <p>{{'labels.order.quantity' | translate}}: {{orderDetail.quantity}}</p>
                                     </div>
                                     <p *ngIf="orderDetail.item.price && orderDetail.quantity; else elseValue">
                                         {{orderDetail.item.price *
@@ -59,12 +59,12 @@
                             </div>
                             <hr>
                             <div class="footer">
-                                Total price: <p *ngIf="order.totalPrice; else elseValue"> {{order.totalPrice}} vnd</p>
+                                {{'labels.order.total-price' | translate}} <p *ngIf="order.totalPrice; else elseValue">{{order.totalPrice}} vnd</p>
                             </div>
                             <ng-template #elseValue>0 vnd</ng-template>
                         </div>
                         <div *ngIf="orders.length < 1">
-                            There is no order to display.
+                            {{'messages.home.order.no-order-data' | translate}}
                         </div>
                     </div>
                 </div>
@@ -73,13 +73,13 @@
                 <div class="tab-pane" id="nav-pending" role="tabpanel" aria-labelledby="nav-pending-tab">
                     <div *ngIf="pendingOrdersOfCustomer.length > 0">
                         <div class="card-item" *ngFor="let order of pendingOrders">
-                            <div><i class="bi bi-truck"></i> Successful delivery</div>
+                            <div><i class="bi bi-truck"></i> {{'labels.order.successful-delivery' | translate}}</div>
                             <hr>
                             <div *ngIf="order.orderDetails.length > 0">
                                 <div class="body" *ngFor="let orderDetail of order.orderDetails">
                                     <div>
                                         <p>{{orderDetail.item.name}}</p>
-                                        <p>Quanitty: {{orderDetail.quantity}}</p>
+                                        <p> {{'labels.order.quantity' | translate}}: {{orderDetail.quantity}}</p>
                                     </div>
                                     <p *ngIf="orderDetail.item.price && orderDetail.quantity">
                                         {{orderDetail.item.price *
@@ -87,16 +87,16 @@
                                 </div>
                             </div>
                             <div *ngIf="order.orderDetails.length < 1">
-                                There is no pending order detail to display.
+                                {{'messages.home.order.no-order-dt-data' | translate}}
                             </div>
                             <hr>
                             <div class="footer">
-                                Total price: <p *ngIf="order.totalPrice; else elseValue"> {{order.totalPrice}} vnd</p>
+                                {{'labels.order.total-price' | translate}} <p *ngIf="order.totalPrice; else elseValue"> {{order.totalPrice}} vnd</p>
                             </div>
                             <ng-template #elseValue>0 vnd</ng-template>
                         </div>
                         <div *ngIf="pendingOrdersOfCustomer.length < 1">
-                            There is no pending order to display.
+                            {{'messages.home.order.no-pending-order-data' | translate}}
                         </div>
                     </div>
                 </div>
@@ -112,7 +112,7 @@
                                     <div class="body" *ngFor="let orderDetail of order.orderDetails">
                                         <div>
                                             <p>{{orderDetail.item.name}}</p>
-                                            <p>Quanitty: {{orderDetail.quantity}}</p>
+                                            <p> {{'labels.order.quantity' | translate}}: {{orderDetail.quantity}}</p>
                                         </div>
                                         <p *ngIf="orderDetail.item.price && orderDetail.quantity">
                                             {{orderDetail.item.price *
@@ -120,18 +120,18 @@
                                     </div>
                                 </div>
                                 <div *ngIf="order.orderDetails.length < 1">
-                                    There is no order detail to display.
+                                    {{'messages.home.order.no-order-dt-data' | translate}}
                                 </div>
                                 <hr>
                                 <div class="footer">
-                                    Total price: <p *ngIf="order.totalPrice; else elseValue"> {{order.totalPrice}} vnd
+                                    {{'labels.order.total-price' | translate}} <p *ngIf="order.totalPrice; else elseValue"> {{order.totalPrice}} vnd
                                     </p>
                                 </div>
-                                <ng-template #elseValue>0 vnd</ng-template>
+                                <ng-template #elseValue>0 {{'labels.order.currency' | translate}}</ng-template>
                             </div>
                         </div>
                         <div *ngIf="pendingOrders.length < 1">
-                            There is no pending order detail to display.
+                            {{'messages.home.order.no-pending-order-dt-data' | translate}}
                         </div>
                     </div>
                 </div>

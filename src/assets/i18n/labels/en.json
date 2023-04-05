@@ -1,0 +1,70 @@
+{
+    "labels": {
+        "item-list": {
+            "update":"Update",
+            "add":"Add new",
+            "delete":"Delete",
+            "name":"Name",
+            "price":"Price",
+            "item-list":"Item list",
+            "save":"Save",
+            "item":"Item",
+            "close":"Close",
+            "icon-close":"x"
+        },
+        "header": {
+            "admin":"Admin",
+            "my-account":"My account",
+            "my-order":"My order",
+            "pending-order":"Pending order",
+            "home-page":"Home page",
+            "log-out":"Log out",
+            "log-in":"Log in",
+            "shop-owner":"Shop owner",
+            "home":"Home",
+            "account":"Account" 
+        },
+        "login-register": {
+            "login": "Login",
+            "register": "Register",
+            "register-here": "Register here",
+            "forgot-password": "Forgot password?",
+            "username": "Username",
+            "password": "Password",
+            "email": "Email",
+            "confirm-password": "Confirm Password",
+            "role": "Role",
+            "user": "User",
+            "admin": "Admin"
+        },
+        "order": {
+            "my-order":"My order",
+            "all":"All",
+            "pending":"Pending",
+            "processing":"Processing",
+            "transfering":"Transfering",
+            "delivered":"Delivered",
+            "cancelled":"Cancelled",
+            "successful-delivery":"Successful delivery",
+            "total-price":"Total price:",
+            "quantity":"Quantity",
+            "currency":"vnd"
+        },
+        "cart": {
+            "cart":"Cart",
+            "all":"All",
+            "price":"Price",
+            "quantity":"Quantity",
+            "total":"Total",
+            "check-out":"Check out",
+            "provisional":"Provisional",
+            "discount-shop":"Discount shop",
+            "currency":"vnd"
+        },
+        "show-item": {
+            "name":"Name:",
+            "price":"Price:",
+            "add-to-cart":"Add to cart"
+        }
+    }
+}

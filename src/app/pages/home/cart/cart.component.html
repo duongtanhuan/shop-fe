@@ -1,6 +1,6 @@
 <div class="content-cart">
     <div class="show-cart">
-        <h4>CART</h4>
+        <h4>{{'labels.cart.cart' | translate | uppercase}}</h4>
         <div class="nav-bar-show-cart">
             <div class="card-body d-flex">
                 <div>
@@ -10,16 +10,16 @@
                 </div>
                 <div class="row">
                     <div class="col-2">
-                        All item
+                        {{'labels.cart.all' | translate}}
                     </div>
                     <div class="col-3">
-                        Price
+                        {{'labels.cart.price' | translate}}
                     </div>
                     <div class="col-3">
-                        Quantity
+                        {{'labels.cart.quantity' | translate}}
                     </div>
                     <div class="col-2">
-                        Total
+                        {{'labels.cart.total' | translate}}
                     </div>
                     <div class="col-2">
                         <div class="delete">
@@ -38,7 +38,7 @@
                 </div>
                 <div class="row">
                     <div class="col-2">{{cartDetail.item.name}}</div>
-                    <div class="col-3">{{cartDetail.item.price}} vnd</div>
+                    <div class="col-3">{{cartDetail.item.price}} {{'labels.cart.currency' | translate}}</div>
                     <div class="change-quantity col-3">
                         <div class="plus text-muted" (click)="increaseItemQuantity(cartDetail)">
                             +
@@ -52,7 +52,7 @@
                             </p>
                         </div>
                     </div>
-                    <div class="col-2">{{cartDetail.item.price * cartDetail.quantity}} vnd</div>
+                    <div class="col-2">{{cartDetail.item.price * cartDetail.quantity}} {{'labels.cart.currency' | translate}}</div>
                     <div class="col-2">
                         <div class="delete" (click)="deleteItemByCartDetailId(cartDetail.id)">
                             <i class="bi bi-trash3"></i>
@@ -61,28 +61,27 @@
                 </div>
             </div>
             <div class="card-footer">
-                <h6>Discount shop</h6>
+                <h6>{{'labels.cart.discount-shop' | translate}}</h6>
             </div>
         </div>
     </div>
     <div class="infor-checkout">
         <div class="address">
-
         </div>
         <div class="checkout">
             <div class="d-flex justify-content-between">
-                <p class="text-muted">Provisional</p>
-                <p>0 vnd</p>
+                <p class="text-muted">{{'labels.cart.provisional' | translate}}</p>
+                <p>0 {{'labels.cart.currency' | translate}}</p>
             </div>
             <hr>
             <div class="d-flex justify-content-between">
-                <p class="text-muted">Total</p>
-                <p>{{priceTotal}} vnd</p>
+                <p class="text-muted">{{'labels.cart.total' | translate}}</p>
+                <p>{{priceTotal}} {{'labels.cart.currency' | translate}}</p>
             </div>
         </div>
         <div class="btnCheckout">
-            <button type="button" class="btn btn-danger" (click)="createOrder()">Check out
-                ({{orderDetails.length}})</button>
+            <button type="button" class="btn btn-danger" (click)="createOrder()">{{'labels.cart.check-out' |
+                translate}}({{orderDetails.length}})</button>
         </div>
     </div>
 </div>

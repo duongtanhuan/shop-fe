@@ -1,12 +1,12 @@
-import { Component, OnInit } from "@angular/core";
-import { Order } from "src/app/models/order";
-import { CommonService } from "src/app/services/common.service";
-import { OrderService } from "../../../services/order.service";
+import { Component, OnInit } from '@angular/core';
+import { Order } from 'src/app/models/order';
+import { CommonService } from 'src/app/services/common.service';
+import { OrderService } from '../../../services/order.service';
 
 @Component({
-  selector: "app-my-order",
-  templateUrl: "./my-order.component.html",
-  styleUrls: ["./my-order.component.scss"],
+  selector: 'app-my-order',
+  templateUrl: './my-order.component.html',
+  styleUrls: ['./my-order.component.scss'],
 })
 export class MyOrderComponent implements OnInit {
   order: Order = new Order();
@@ -14,7 +14,7 @@ export class MyOrderComponent implements OnInit {
   pendingOrders: Order[] = [];
   pendingOrdersOfCustomer: Order[] = [];
   customerId: number;
-  isAdmin: boolean
+  isAdmin: boolean;
 
   constructor(
     private service: OrderService,
@@ -42,8 +42,10 @@ export class MyOrderComponent implements OnInit {
   }
 
   getPendingOrdersByCustomerIdAndStatus(id: number) {
-    this.service.doGetPendingOrdersByCustomerIdAndStatus(id).subscribe((res) => {
-      this.pendingOrdersOfCustomer = res;
-    });
+    this.service
+      .doGetPendingOrdersByCustomerIdAndStatus(id)
+      .subscribe((res) => {
+        this.pendingOrdersOfCustomer = res;
+      });
   }
 }

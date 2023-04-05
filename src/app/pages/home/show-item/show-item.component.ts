@@ -1,17 +1,17 @@
-import { Component, OnInit } from "@angular/core";
-import { Observable } from "rxjs";
-import { Cart } from "src/app/models/cart";
-import { CartDetail } from "src/app/models/cart-detail";
-import { Item } from "src/app/models/item";
-import { CartService } from "src/app/services/cart.service";
-import { ItemService } from "src/app/services/item.service";
-import { CartDetailService } from "../../../services/cart-detail.service";
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Cart } from 'src/app/models/cart';
+import { CartDetail } from 'src/app/models/cart-detail';
+import { Item } from 'src/app/models/item';
+import { CartService } from 'src/app/services/cart.service';
+import { ItemService } from 'src/app/services/item.service';
+import { CartDetailService } from '../../../services/cart-detail.service';
 import { CommonService } from '../../../services/common.service';
 
 @Component({
-  selector: "app-show-item",
-  templateUrl: "./show-item.component.html",
-  styleUrls: ["./show-item.component.scss"],
+  selector: 'app-show-item',
+  templateUrl: './show-item.component.html',
+  styleUrls: ['./show-item.component.scss'],
 })
 export class ShowItemComponent implements OnInit {
   cartResponse: Cart = new Cart();
@@ -30,7 +30,7 @@ export class ShowItemComponent implements OnInit {
 
   ngOnInit() {
     this.customerId = this.commonService.getCustomerId();
-    this.isAdmin = this.commonService .getIsAdmin();
+    this.isAdmin = this.commonService.getIsAdmin();
     this.getItemAll();
     this.getCartByCustomerId(this.customerId);
   }
@@ -38,7 +38,7 @@ export class ShowItemComponent implements OnInit {
   getCartByCustomerId(id: number) {
     this.cartService.doGetCartByCustomerId(id).subscribe((res) => {
       this.cartResponse = res;
-      this.commonService.setSizeCart(res.cartDetails.length)
+      this.commonService.setSizeCart(res.cartDetails.length);
     });
   }
 

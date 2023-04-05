@@ -1,14 +1,15 @@
-import { Component, OnInit } from "@angular/core";
-import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { ActivatedRoute, Router } from "@angular/router";
-import { Auth } from "src/app/models/auth";
-import { AuthService } from "src/app/services/auth.service";
-import { mustMatch } from "../../helpers/must-match.validators";
+import { Component, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ADMIN_ROLE, USER_ROLE } from 'src/app/constant/utilities';
+import { Auth } from 'src/app/models/auth';
+import { AuthService } from 'src/app/services/auth.service';
+import { mustMatch } from '../../helpers/must-match.validators';
 
 @Component({
-  selector: "app-register",
-  templateUrl: "./register.component.html",
-  styleUrls: ["./register.component.scss"],
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit {
   auth: Auth = new Auth();
@@ -29,26 +30,26 @@ export class RegisterComponent implements OnInit {
     this.registerForm = this.fb.group(
       {
         username: [
-          "",
+          '',
           Validators.compose([
             Validators.required,
-            Validators.minLength(3),
+            Validators.minLength(5),
             Validators.maxLength(20),
           ]),
         ],
         password: [
-          "",
+          '',
           Validators.compose([Validators.required, Validators.minLength(5)]),
         ],
-        confirmPassword: ["", Validators.compose([Validators.required])],
+        confirmPassword: ['', Validators.compose([Validators.required])],
         email: [
-          "",
+          '',
           Validators.compose([Validators.required, Validators.email]),
         ],
-        roles: this.fb.array([this.fb.control("user")]),
+        roles: this.fb.array([this.fb.control('user')]),
       },
       {
-        validator: mustMatch("password", "confirmPassword"),
+        validator: mustMatch('password', 'confirmPassword'),
       }
     );
   }
@@ -64,8 +65,8 @@ export class RegisterComponent implements OnInit {
       next: (data) => {
         this.message = data.message;
       },
-      error: () => {
-        this.message = "User registered failure.";
+      error: (e) => {
+        this.message = e.error.message;
       },
     });
     this.onReset();
@@ -76,26 +77,27 @@ export class RegisterComponent implements OnInit {
     this.registerForm.reset();
   }
   goAdmin() {
-    this.router.navigate(["/", "admin", "item"], { relativeTo: this.route });
+    this.router.navigate(['/', 'admin', 'item'], { relativeTo: this.route });
   }
 
   goHome() {
-    this.router.navigate([""], { relativeTo: this.route });
+    this.router.navigate([''], { relativeTo: this.route });
   }
 
   get f() {
     return this.registerForm.controls;
   }
+
   get Username() {
-    return this.registerForm.get("username");
+    return this.registerForm.get('username');
   }
 
   get Password() {
-    return this.registerForm.get("password");
+    return this.registerForm.get('password');
   }
 
   addRoles() {
-    this.Roles.push(this.fb.control(""));
+    this.Roles.push(this.fb.control(''));
   }
 
   removeRoles() {
@@ -104,11 +106,11 @@ export class RegisterComponent implements OnInit {
 
   setRoles(role: string, value: any) {
     const checkRole = this.roles.filter((r) => {
-      return r === "admin" || r === "user";
+      return r === ADMIN_ROLE || r === USER_ROLE;
     });
 
     if (value.target.checked) {
-      if (!checkRole.includes("admin") || !checkRole.includes("user")) {
+      if (!checkRole.includes(ADMIN_ROLE) || !checkRole.includes(USER_ROLE)) {
         this.addRoles();
         this.roles.push(role);
       }
@@ -124,10 +126,10 @@ export class RegisterComponent implements OnInit {
   }
 
   get Email() {
-    return this.registerForm.get("email");
+    return this.registerForm.get('email');
   }
 
   get Roles(): FormArray {
-    return this.registerForm.get("roles") as FormArray;
+    return this.registerForm.get('roles') as FormArray;
   }
 }

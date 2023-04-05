@@ -1,10 +1,10 @@
-import { Component, OnInit } from "@angular/core";
-import { CommonService } from "src/app/services/common.service";
+import { Component, OnInit } from '@angular/core';
+import { CommonService } from 'src/app/services/common.service';
 
 @Component({
-  selector: "app-home",
-  templateUrl: "./home.component.html",
-  styleUrls: ["./home.component.scss"],
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
   isUserAdminLogged: boolean;

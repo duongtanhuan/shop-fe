@@ -5,6 +5,6 @@
     </div>
 </div>
 <div class="main" *ngIf="!(isUserAdminLogged || isUserLogged || isAdminLogged)">
-    You are not logged in ? Please you logged in at here <a routerLink="/login" routerLinkActive="active"
-        class="register text-info">Log in</a>
+    {{'messages.home.login-register.no-login' | translate}}<a routerLink="/login" routerLinkActive="active"
+        class="register text-info">{{'labels.header.log-in' | translate}}</a>
 </div>

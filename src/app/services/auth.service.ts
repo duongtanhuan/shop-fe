@@ -1,14 +1,14 @@
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
-import { AUTH_API } from "../constant/api";
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { AUTH_API } from '../constant/api';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class AuthService {
   private headerApplicationJson = new HttpHeaders({
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
   });
 
   constructor(private http: HttpClient) {}

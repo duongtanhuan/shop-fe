@@ -1,0 +1,26 @@
+{
+    "messages": {
+        "admin": {
+            "unauthorization":"you do not have access to access this page or you are not logged in ? Please you logged in at here.",
+            "deleted": "This item deleted.",
+            "no-data": "There is no data to display.",
+            "saved": "Item Saved."
+        },
+        "home": {
+            "login-register": {
+                "register-note-title":"Please enter information to register for your account.",
+                "login-note-title":"Please enter your login and password.",
+                "login":"Are you wanna login now?",
+                "no-account":"Don't have an account?",
+                "no-login": " You are not logged in ? Please you logged in at here."
+            },
+            "order": {
+                "no-order-dt-data":"There is no order detail to display.",
+                "no-order-data":"There is no order to display.",
+                "no-pending-order-data":"There is pending no order to display.",
+                "no-pending-order-dt-data":"There is no pending order detail to display."
+            }
+        }
+    }
+
+}

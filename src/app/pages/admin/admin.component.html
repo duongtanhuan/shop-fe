@@ -1,15 +1,15 @@
 <div class="main" *ngIf="isAdminLogged || isUserAdminLogged; else elseValue">
     <div class="header">
         <div class="title">
-            <h4 class="text-white fw-bold p-4">ADMIN</h4>
+            <h4 class="text-white fw-bold p-4">{{'labels.header.admin' | translate | uppercase}}</h4>
         </div>
         <div class="account">
             <div class="dropdown">
                 <h3 class="drop"><i class="bi bi-person-circle"></i></h3>
                 <div class="dropdown-content">
-                    <span (click)="goHome()">My account</span>
-                    <span (click)="goHome()">Home page</span>
-                    <span (click)="logout()">Log out</span>
+                    <span (click)="goHome()">{{'labels.header.my-account' | translate}}</span>
+                    <span (click)="goHome()">{{'labels.header.home-page' | translate}}</span>
+                    <span (click)="logout()">{{'labels.header.log-out' | translate}}</span>
                 </div>
             </div>
         </div>
@@ -25,6 +25,6 @@
     </div>
 </div>
 <ng-template #elseValue>
-    you do not have access to access this page or you are not logged in ? Please you logged in at here<a
-        routerLink="/login" routerLinkActive="active" class="register text-info"> Log in</a>
+    {{'messages.admin.unauthorization' | translate}}<a
+        routerLink="/login" routerLinkActive="active" class="register text-info">{{'labels.header.log-in' | translate}}</a>
 </ng-template>

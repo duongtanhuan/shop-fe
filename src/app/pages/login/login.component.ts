@@ -1,14 +1,15 @@
-import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { ActivatedRoute, Router } from "@angular/router";
-import { Auth } from "src/app/models/auth";
-import { AuthService } from "../../services/auth.service";
-import { CommonService } from "../../services/common.service";
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Auth } from 'src/app/models/auth';
+import { AuthService } from '../../services/auth.service';
+import { CommonService } from '../../services/common.service';
+import { ADMIN_ROLE, USER_ROLE, USER_ADMIN_ROLE } from 'src/app/constant/utilities';
 
 @Component({
-  selector: "app-login",
-  templateUrl: "./login.component.html",
-  styleUrls: ["./login.component.scss"],
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
   auth: Auth = new Auth();
@@ -29,8 +30,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = this.fb.group({
-      username: ["", Validators.required],
-      password: ["", Validators.required],
+      username: ['', Validators.required],
+      password: ['', Validators.required],
     });
   }
 
@@ -56,22 +57,22 @@ export class LoginComponent implements OnInit {
     this.authService.doPostCredentials(this.auth).subscribe({
       next: (data) => {
         this.commonService.setCustomerId(data.id);
-        this.commonService.setToken(data.token)
+        this.commonService.setToken(data.token);
 
         this.authResponse = data;
         this.invalidMessage = null;
         this.roles = data.roles;
         this.roles.filter((s: string) => {
-          return s == "admin";
+          return s === ADMIN_ROLE;
         });
-        if (this.roles.includes("admin") && this.roles.includes("user")) {
-          this.isRole = "user_admin";
+        if (this.roles.includes(ADMIN_ROLE) && this.roles.includes(USER_ROLE)) {
+          this.isRole = USER_ADMIN_ROLE;
           this.goAdmin();
-        } else if (this.roles.includes("admin")) {
-          this.isRole = "admin";
+        } else if (this.roles.includes(ADMIN_ROLE)) {
+          this.isRole = ADMIN_ROLE;
           this.goAdmin();
         } else {
-          this.isRole = "user";
+          this.isRole = USER_ROLE;
           this.goHome();
         }
         this.commonService.setIsRole(this.isRole);
@@ -84,18 +85,18 @@ export class LoginComponent implements OnInit {
   }
 
   goAdmin() {
-    this.router.navigate(["/", "admin", "item"], { relativeTo: this.route });
+    this.router.navigate(['/', 'admin', 'item'], { relativeTo: this.route });
   }
 
   goHome() {
-    this.router.navigate([""], { relativeTo: this.route });
+    this.router.navigate([''], { relativeTo: this.route });
   }
 
   get Username() {
-    return this.loginForm.get("username");
+    return this.loginForm.get('username');
   }
 
   get Password() {
-    return this.loginForm.get("password");
+    return this.loginForm.get('password');
   }
 }

@@ -1,28 +1,27 @@
 <div class="container">
-  <h5 class="mb-5"> ITEM LIST</h5>
+  <h5 class="mb-5">{{'labels.item-list.item-list' | translate | uppercase}}</h5>
   <div class="row" [hidden]="!deleteMessage">
     <div class="col-sm-4"></div>
     <div class="col-sm-4">
       <div class="alert alert-info alert-dismissible">
-        <button type="button" class="close" data-dismiss="alert">×</button>
-        <strong>This item deleted</strong>
+        <button type="button" class="close" data-dismiss="alert">{{'labels.item-list.icon-close' | translate }}</button>
+        <strong>{{'messages.admin.deleted' | translate}}</strong>
       </div>
     </div>
     <div class="col-sm-4"></div>
   </div>
   <div class="mt-5 mb-5">
-    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#itemModal" (click)="addNew()">Add
-      new</button>
+    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#itemModal" (click)="addNew()">{{'labels.item-list.add' | translate }}</button>
   </div>
   <div class="table-responsive table-hover bg-white">
     <table class="table">
       <thead>
         <tr class="bg-info">
-          <th>.No</th>
-          <th>Name</th>
-          <th>Price</th>
-          <th>Update</th>
-          <th>Delete</th>
+          <th>#</th>
+          <th>{{'labels.item-list.name' | translate }}</th>
+          <th>{{'labels.item-list.price' | translate }}</th>
+          <th>{{'labels.item-list.update' | translate }}</th>
+          <th>{{'labels.item-list.delete' | translate }}</th>
         </tr>
       </thead>
       <tbody>
@@ -31,14 +30,14 @@
           <td>{{item.name}}</td>
           <td>{{item.price}}</td>
           <td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#itemModal"
-              (click)="updateItem(item.id)">Update</button>
+              (click)="updateItem(item.id)">{{'labels.item-list.update' | translate }}</button>
           </td>
-          <td><button type="button" class="btn btn-primary" (click)="deleteItem(item.id)">Delete</button></td>
+          <td><button type="button" class="btn btn-primary" (click)="deleteItem(item.id)">{{'labels.item-list.delete' | translate }}</button></td>
         </tr>
         <tr *ngIf="!items?.length">
           <td colspan="5">
             <span class="display-message">
-              There is no data to display.
+              {{'messages.admin.no-data' | translate}}
             </span>
           </td>
         </tr>
@@ -50,36 +49,36 @@
       <div class="modal-content">
         <form [formGroup]="itemForm" (ngSubmit)="saveItem()">
           <div class="modal-header">
-            <h4 class="modal-title">{{modalTitle}} Item</h4>
+            <h4 class="modal-title">{{modalTitle}} {{'labels.item-list.item' | translate }}</h4>
             <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
           <div class="modal-body">
             <div [hidden]="isSaved">
               <input type="hidden" class="form-control" formControlName="itemId" [(ngModel)]="item.id">
               <div class="form-group">
-                <label for="itemName">Item Name</label>
+                <label for="itemName">{{'labels.item-list.name' | translate }}</label>
                 <input type="text" name="itemName" formControlName="itemName" class="form-control"
                   [(ngModel)]="item.name" [ngClass]="{'is-invalid': submitted && f.itemName.errors }" />
                 <div class="invalid-feedback" *ngIf="submitted && f.itemName.errors">
-                  <span *ngIf="f.itemName.errors.required">Item name is required</span>
+                  <span *ngIf="f.itemName.errors.required">{{'validators.error.required' | translate}}</span>
                 </div>
               </div>
               <div class="form-group">
-                <label for="price">Item Price</label>
+                <label for="price">{{'labels.item-list.price' | translate }}</label>
                 <input type="number" name="price" formControlName="itemPrice" class="form-control"
                   [(ngModel)]="item.price" [ngClass]="{'is-invalid': submitted && f.itemPrice.errors }" />
                 <div class="invalid-feedback" *ngIf="submitted && f.itemPrice.errors">
-                  <span *ngIf="f.itemPrice.errors.required"> Item price is required</span>
+                  <span *ngIf="f.itemPrice.errors.required">{{'validators.error.required' | translate}}</span>
                 </div>
               </div>
             </div>
             <div [hidden]="!isSaved">
-              <h4>Item Saved</h4>
+              <h4>{{'messages.admin.saved' | translate}}</h4>
             </div>
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-success" [hidden]="isSaved">Save</button>
-            <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="changeisSaved()">Close</button>
+            <button type="submit" class="btn btn-success" [hidden]="isSaved">{{'labels.item-list.save' | translate }}</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="changeisSaved()">{{'labels.item-list.close' | translate }}</button>
           </div>
         </form>
       </div>

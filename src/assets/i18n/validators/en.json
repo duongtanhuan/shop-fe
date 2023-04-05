@@ -1,0 +1,11 @@
+{
+	"validators": {
+		"error": {
+			"required":"This field is required.",
+			"min-length":"This field length must be at least than 5 characters.",
+			"max-length":"This field length must be less than 20 characters.",
+			"email":"Email must be email valid address.",
+			"password-must-match":"Password must match."
+		}
+	}
+}

@@ -2,7 +2,7 @@
     <div class="form">
         <div class="title">
             <h2 class="fw-bold mb-2 text-uppercase text-info"><i class="bi bi-balloon-heart-fill"></i>Login</h2>
-            <p class="text-info">Please enter your login and password.</p>
+            <p class="text-info">{{'messages.home.login-register.login-note-title' | translate}}</p>
         </div>
         <div class="input">
             <form [formGroup]="loginForm" (ngSubmit)="login()">
@@ -10,31 +10,35 @@
                     <span>{{invalidMessage}}</span>
                 </div>
                 <div class="mb-4">
-                    <label class="text-muted" for="username">Username</label>
+                    <label class="text-muted" for="username">{{'labels.login-register.username' | translate}}</label>
                     <input type="text" name="username" class="form-control form-control-lm" placeholder="Username"
                         formControlName="username" [ngClass]="{'is-invalid': submitted && f.username.errors }" />
                     <div class="invalid-feedback" *ngIf="submitted && f.username.errors">
-                        <span *ngIf="f.username.errors.required">Username is required</span>
+                        <span *ngIf="f.username.errors.required">{{'validators.error.required' | translate}}</span>
                     </div>
                 </div>
                 <div class="mt-3">
-                    <label class="text-muted" for="username">Password</label>
+                    <label class="text-muted" for="username">{{'labels.login-register.password' | translate}}</label>
                     <input type="password" name="password" class="form-control form-control-lm" placeholder="Password"
                         formControlName="password" [ngClass]="{'is-invalid': submitted && f.password.errors }" />
                     <div class="invalid-feedback" *ngIf="submitted && f.password.errors">
-                        <span *ngIf="f.password.errors.required">Password is required</span>
+                        <span *ngIf="f.password.errors.required">{{'validators.error.required' | translate}}</span>
                     </div>
                 </div>
                 <div class="mt-4 mb-4">
-                    <button type="submit" class="btn btn-info w-100">LOGIN</button>
+                    <button type="submit" class="btn btn-info w-100">{{'labels.login-register.login' | translate |
+                        uppercase}}</button>
                 </div>
-                <a routerLink="" routerLinkActive="active" class="register text-info">Forgot password?</a>
+                <a routerLink="" routerLinkActive="active"
+                    class="register text-info">{{'labels.login-register.forgot-password' | translate}}</a>
                 <div class="d-flex mt-3">
-                    <p>Don't have an account?</p>
-                    <a routerLink="/register" routerLinkActive="active" class="register text-info">Register here</a>
+                    <p>{{'messages.home.login-register.no-account' | translate}}</p>
+                    <a routerLink="/register" routerLinkActive="active"
+                        class="register text-info">{{'labels.login-register.register-here' | translate}}</a>
                 </div>
                 <div class="text-center">
-                    <a routerLink="" routerLinkActive="active" class="register text-info">Home page</a>
+                    <a routerLink="" routerLinkActive="active" class="register text-info">{{'labels.header.home-page' |
+                        translate}}</a>
                 </div>
             </form>
         </div>
